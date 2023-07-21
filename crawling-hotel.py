@@ -44,6 +44,7 @@ def hotel_crawl(s_date: datetime, e_date: datetime):
         prod_list = soup.select('.a826ba81c4.fa2f36ad22.afd256fc79.d08f526e0d.ed11e24d01.ef9845d4b3.da89aeb942')
     except Exception as error:
         print(f'에러: {type(error).__name__}, 메시지: {error}')
+
     hotel_csv(prod_list, s_date, e_date)
 
 def get_date_combinations(start_date, days=30):
@@ -69,9 +70,9 @@ def hotel_csv(prod_list, s_date, e_date):
     except FileNotFoundError:
         pass
 
-
     data_list = []
     stay_length_dates = [s_date, e_date]
+    print(stay_length_dates)
     for section in prod_list:
         hotel_name = section.select_one('[data-testid="title"]').text.strip()
         region = section.select_one('[data-testid="address"]').text.strip()
@@ -83,7 +84,7 @@ def hotel_csv(prod_list, s_date, e_date):
                             price]
                             + stay_length_dates)
 
-    with open('hotel.csv', 'a+', encoding='utf-8', newline='') as file:
+    with open(file_name, 'a+', encoding='utf-8', newline='') as file:
         csv_writer = csv.writer(file, delimiter=';')
         if not file_exists:
             csv_writer.writerow(columns)
