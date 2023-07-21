@@ -1,35 +1,40 @@
 import csv
+import time
 
 from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 
 from bs4 import BeautifulSoup
 
 from itertools import combinations
 
-columns = ['hotel_name','region','ratings', 'price', 'start_date', 'end_date']
+columns = ['url', 'hotel_name','region','ratings', 'price', 'start_date', 'end_date']
 
 def parse_date(date_: datetime):
     '''datetime 'yyyy-mm-dd' 형식 str으로 반환'''
     return date_.strftime(r"%Y-%m-%d")
 
-def try_find_element_click(*args, click=True):
+def try_find_element(*args, click=False, find_all=False):
     '''
-    셀레니움 element 찾고 click을 try-except wrapper로 구성\n
-    *args: (by, value)들로 구성된 튜플 -> ((by, value),)
+    셀레니움 element 찾기 try-except wrapper로 구성\n
+    *args: (by, value)들로 구성된 튜플 -> ((by, value),)\n
+    find_all은 모든 element 찾기\n
+    click은 single element에 대해 click. None 반환\n
+    None이 아닌 경우는 element 또는 element list 반환
     '''
     while True:
         try:
             for tuple_ in args:
-                print(tuple_)
-                element = driver.find_element(*tuple_)
-                if click:
-                    element.click()
+                if find_all:
+                    return driver.find_elements(*tuple_)
                 else:
-                    return element
+                    element = driver.find_element(*tuple_)
+                    if click:
+                        element.click()
+                    else:
+                        return element
             break
         except NoSuchElementException:
             print('팝업 종료')
@@ -45,20 +50,28 @@ def hotel_crawl(s_date: datetime, e_date: datetime):
     e_date = parse_date(e_date)
 
     # 날짜 박스 + 시작 + 종료일 클릭
-    try_find_element_click((By.CLASS_NAME, 'b91c144835'), (By.XPATH, rf'//*[@data-date="{s_date}"]'), (By.XPATH, rf'//*[@data-date="{e_date}"]'))
+    try_find_element((By.CLASS_NAME, 'b91c144835'), (By.XPATH, rf'//*[@data-date="{s_date}"]'), (By.XPATH, rf'//*[@data-date="{e_date}"]'), click=True)
 
     # 적용하기 클릭
-    try_find_element_click((By.XPATH, r'//*[@type="submit"]'))
+    try_find_element((By.XPATH, r'//*[@type="submit"]'), click=True)
     
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
+    page_num_elements = try_find_element((By.CSS_SELECTOR, '.fc63351294.f9c5690c58'), find_all=True)
 
-    # property-card 로딩 기다리기
-    WebDriverWait(driver, 5)
-    
-    property_card = soup.select('.a826ba81c4.fa2f36ad22.afd256fc79.d08f526e0d.ed11e24d01.ef9845d4b3.da89aeb942')
+    # 다음 페이지로 넘김
+    for idx, element in enumerate(page_num_elements[:4]):
+        if idx == 1:
+            pass
+        else:
+            element.click()
 
-    hotel_csv(property_card, s_date, e_date)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+
+        time.sleep(10)
+        
+        hotels = soup.select('.a826ba81c4.fa2f36ad22.afd256fc79.d08f526e0d.ed11e24d01.ef9845d4b3.da89aeb942')
+
+        hotel_csv(hotels, s_date, e_date)
 
 def get_date_combinations(start_date, days=30):
     'start_date부터 days일 후까지 가능한 시작/종료일 조합'
@@ -85,17 +98,18 @@ def hotel_csv(soup_elements, s_date, e_date):
 
     data_list = []
     stay_length_dates = [s_date, e_date]
-    print(stay_length_dates)
     for property_card in soup_elements:
+        url = property_card.find('a', class_='e13098a59f')['href'].strip()
         hotel_name = property_card.select_one('[data-testid="title"]').text.strip()
         region = property_card.select_one('[data-testid="address"]').text.strip()
         ratings = float(property_card.select_one('.b5cd09854e.d10a6220b4').text.strip())
         price = int(property_card.select_one('[data-testid="price-and-discounted-price"]').text.strip().replace(',','').replace('₩',''))
-        data_list.append([hotel_name,
-                            region,
-                            ratings,
-                            price]
-                            + stay_length_dates)
+        data_list.append([url,
+                          hotel_name,
+                          region,
+                          ratings,
+                          price]
+                          + stay_length_dates)
 
     with open(file_name, 'a+', encoding='utf-8', newline='') as file:
         csv_writer = csv.writer(file, delimiter=';')
