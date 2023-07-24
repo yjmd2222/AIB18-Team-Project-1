@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>클릭으로 팝업 드롭다운 메뉴 예제</title>
-       <style>
+    <style>
         /* 드롭다운 메뉴 스타일 */
         .dropdown-menu {
             position: relative;
@@ -13,7 +13,7 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 200px;
+            min-width: 300px;
             padding: 8px;
             border: 1px solid #ccc;
             z-index: 1;
@@ -47,117 +47,48 @@
             vertical-align: middle;
         }
     </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
     <h1>클릭으로 팝업 드롭다운 메뉴 예제</h1>
 
-    <!-- 첫 번째 팝업 드롭다운 메뉴 -->
-    <div class="dropdown-menu">
-        <button>메뉴 1</button>
-        <div class="dropdown-content 1">
-            <p>메뉴 1의 내용입니다.</p>
-            <!-- 첫 번째 메뉴의 드롭다운 메뉴 -->
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>1</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 1</button>
-                <div class="dropdown-content sub-content 1 a">
-                    <p>서브 메뉴 1의 내용입니다.</p>
-                </div>
-            </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>2</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 2</button>
-                <div class="dropdown-content sub-content 1 b">
-                    <p>서브 메뉴 2의 내용입니다.</p>
-                </div>
-            </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>3</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 3</button>
-                <div class="dropdown-content sub-content 1 c">
-                    <p>서브 메뉴 3의 내용입니다.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div>
+        <input type="text" name="daterange" value="" />
 
-    <!-- 두 번째 팝업 드롭다운 메뉴 -->
-    <div class="dropdown-menu">
-        <button>메뉴 2</button>
-        <div class="dropdown-content 2">
-            <p>메뉴 2의 내용입니다.</p>
-            <!-- 두 번째 메뉴의 드롭다운 메뉴 -->
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>4</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 4</button>
-                <div class="dropdown-content sub-content 2 a">
-                    <p>서브 메뉴 4의 내용입니다.</p>
-                </div>
+        <script>
+            $(function() {
+              $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+              }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+              });
+            });
+        </script>
+    </div>
+    
+    {% for category, sub_menus in sub_menu_names.items() %}
+    <div class="dropdown-menu {{ category }} ">
+        <button>{{ category }}</button>
+        <div class="dropdown-content {{ category }}">
+            <p>{{ category }}의 내용입니다.</p>
+            {% for sub_menu, sub_values in sub_menus.items() %}
+            <div class="sub-menu-name sub_menu">
+                <span>{{ sub_menu }}</span>
             </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>5</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 5</button>
-                <div class="dropdown-content sub-content 2 b">
-                    <p>서브 메뉴 5의 내용입니다.</p>
-                </div>
-            </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>6</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 6</button>
-                <div class="dropdown-content sub-content 2 c">
-                    <p>서브 메뉴 6의 내용입니다.</p>
-                </div>
-            </div>
+            <select class="sub-menu" onchange="showSubContent('{{ category }}', this.value)">
+                <option value="">서브 메뉴 선택</option>
+                {% for sub_value in sub_values %}
+                <option value="{{ sub_value }}">{{ sub_value }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            {% endfor %}
         </div>
     </div>
-
-    <!-- 세 번째 팝업 드롭다운 메뉴 -->
-    <div class="dropdown-menu">
-        <button>메뉴 3</button>
-        <div class="dropdown-content 3">
-            <p>메뉴 3의 내용입니다.</p>
-            <!-- 세 번째 메뉴의 드롭다운 메뉴 -->
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>7</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 7</button>
-                <div class="dropdown-content sub-content 3 a">
-                    <p>서브 메뉴 7의 내용입니다.</p>
-                </div>
-            </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>8</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 8</button>
-                <div class="dropdown-content sub-content 3 b">
-                    <p>서브 메뉴 8의 내용입니다.</p>
-                </div>
-            </div>
-            <div class="dropdown-menu">
-                <div class="sub-menu-name">
-                    <span>9</span>
-                </div>
-                <button class="sub-menu">서브 메뉴 9</button>
-                <div class="dropdown-content sub-content 3 c">
-                    <p>서브 메뉴 9의 내용입니다.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 
     <script>
         // 팝업 드롭다운 메뉴 표시/감추기
@@ -182,6 +113,18 @@
                 content.style.display = "none";
             });
         });
+
+        function showSubContent(category, selectedSubmenu) {
+            const subContentPlaceholder = document.querySelector(`.dropdown-content.${category} .sub-content-placeholder`);
+            const selectedSubContent = document.querySelector(`.dropdown-content.${category} .sub-content.${selectedSubmenu}`);
+
+            if (selectedSubContent) {
+                subContentPlaceholder.style.display = "none";
+                selectedSubContent.style.display = "block";
+            } else {
+                subContentPlaceholder.style.display = "block";
+            }
+        }
     </script>
 </body>
 </html>

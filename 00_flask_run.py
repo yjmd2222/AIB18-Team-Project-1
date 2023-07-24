@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
 import subprocess
 
+import test
+
 app = Flask(__name__)
+app.register_blueprint(test.bp)
 
 @app.route('/')
 def index():
