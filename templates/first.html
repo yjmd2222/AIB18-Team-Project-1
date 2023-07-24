@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>클릭으로 팝업 드롭다운 메뉴 예제</title>
+    <style>
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>클릭으로 팝업 드롭다운 메뉴 예제</h1>
+
+    <!-- 첫 번째 팝업 드롭다운 메뉴 -->
+    <div class="dropdown-menu">
+        <button>메뉴 1</button>
+        <div class="dropdown-content">
+            <p>메뉴 1의 내용입니다.</p>
+            <!-- 첫 번째 메뉴의 드롭다운 메뉴 -->
+            <div class="dropdown-menu">
+                <button>서브 메뉴 1</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 1의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 1</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 1의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 1</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 1의 내용입니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 두 번째 팝업 드롭다운 메뉴 -->
+    <div class="dropdown-menu">
+        <button>메뉴 2</button>
+        <div class="dropdown-content">
+            <p>메뉴 2의 내용입니다.</p>
+            <!-- 두 번째 메뉴의 드롭다운 메뉴 -->
+            <div class="dropdown-menu">
+                <button>서브 메뉴 2</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 2의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 2</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 2의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 2</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 2의 내용입니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 세 번째 팝업 드롭다운 메뉴 -->
+    <div class="dropdown-menu">
+        <button>메뉴 3</button>
+        <div class="dropdown-content">
+            <p>메뉴 3의 내용입니다.</p>
+            <!-- 세 번째 메뉴의 드롭다운 메뉴 -->
+            <div class="dropdown-menu">
+                <button>서브 메뉴 3</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 3의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 3</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 3의 내용입니다.</p>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <button>서브 메뉴 3</button>
+                <div class="dropdown-content">
+                    <p>서브 메뉴 3의 내용입니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 팝업 드롭다운 메뉴 표시/감추기
+        const dropdownMenus = document.querySelectorAll(".dropdown-menu button");
+
+        dropdownMenus.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const dropdownContent = event.target.nextElementSibling;
+                dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>
