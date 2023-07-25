@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 bp = Blueprint('1페이지', __name__, url_prefix='/1페이지')
 
@@ -12,6 +12,12 @@ sub_menu_names = {
 }
 print(sub_menu_names)
 
-@bp.route('/')
+@bp.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        # Get the data sent from the form
+        data = request.form.get('input_data')
+        print("Received data:", data)
+        # Perform any additional processing or database operations with the data here
+
     return render_template('firstTemplate.html', sub_menu_names=sub_menu_names)

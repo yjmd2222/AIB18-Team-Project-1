@@ -118,6 +118,10 @@
             const dates = $('input[name="daterange"]').val()
             selectedOptions['dateRange'] = dates
             console.log(JSON.stringify(selectedOptions));
+
+            // Add the data to the hidden form and submit the form
+            document.getElementById("inputData").value = JSON.stringify(selectedOptions);
+            document.getElementById("myForm").submit();
         });
     </script>
 
