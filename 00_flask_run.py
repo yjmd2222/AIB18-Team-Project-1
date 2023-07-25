@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 import subprocess
 
-import test
+import flask_1p_option_selection
 
 app = Flask(__name__)
-app.register_blueprint(test.bp)
+app.register_blueprint(flask_1p_option_selection.bp)
 
 @app.route('/')
 def index():

@@ -60,7 +60,7 @@
 
         <script>
             $(function() {
-              $('input[name="daterange"]').daterangepicker({
+              var drp = $('input[name="daterange"]').daterangepicker({
                 opens: 'left'
               }, function(start, end, label) {
                 console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
@@ -89,6 +89,34 @@
         </div>
     </div>
     {% endfor %}
+
+    <div>
+        <button class="submit">예측</button>
+    </div>
+
+    <script>
+        // JSON 출력을 위한 이벤트 핸들러 추가
+        document.querySelector(".submit").addEventListener("click", function () {
+            const selectedOptions = {};
+            const dropdownMenus = document.querySelectorAll(".sub-menu");
+    
+            dropdownMenus.forEach((select) => {
+                const category = select.parentElement.className.split(" ")[1];
+                const selectedSubmenu = select.value;
+                const inputValue = select.nextElementSibling.value; // 새로 추가된 input 요소의 값을 읽어옴
+                
+                if (selectedSubmenu !== "") {
+                    if (!selectedOptions[category]) {
+                        selectedOptions[category] = [];
+                    }
+                    selectedOptions[category].push({ subMenu: selectedSubmenu, value: inputValue });
+                }
+            });
+    
+            // 선택한 옵션들을 JSON 형태로 출력
+            console.log(JSON.stringify(selectedOptions));
+        });
+    </script>
 
     <script>
         // 팝업 드롭다운 메뉴 표시/감추기
