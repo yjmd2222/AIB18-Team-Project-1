@@ -12,14 +12,14 @@ def index():
             <title>Our Company</title>
         </head>
         <body>
-            <h1>제주도 날씨</h1>
+            <h1>제주도 날씨와 맛집🍊</h1>
             <h2></h2>
-            <p>위치를 입력해주세요</p>
+            <p>↓위치를 입력해주세요 ↓  </p>
             <form action="/process" method="post">
                 <h2>
                     <input type="text" name="location" 위치="위치" placeholder="현재 위치">
                 </h2>
-                <button type="submit">입력</button>
+                <button type="submit">입력 (●'ᴗ'●)ﾉ♥</button>
             </form>
         </body>
         </html>

@@ -45,7 +45,7 @@ week_weather_icons = soup.find('div', {'class': 'list_box _weekly_weather'}).fin
 
 # 주간 합쳐서 프린트하기
 print('')
-print("< 주간 날씨 > ")
+print("< 주간 날씨> ")
 print('')
 for a,b,c in zip(week_weather_times, week_temperature_cells,week_weather_icons):
     print(a.text+ '\t' +b.text+'\t' +c.text)
@@ -118,11 +118,11 @@ url = f"https://www.mangoplate.com/search/{keyword}"
 
 
 
-# from selenium.webdriver.chrome.options import Options
-# chrome_options = Options()
-# chrome_options.add_argument("--headless")  
-# driver = webdriver.Chrome(options = chrome_options) # GUI 없이 런 
-driver = webdriver.Chrome()
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument("--headless")  
+driver = webdriver.Chrome(options = chrome_options) # GUI 없이 런 
+#driver = webdriver.Chrome()
 driver.get(url)
 
 req = driver.page_source
@@ -184,10 +184,10 @@ driver.quit()
 
 # 데이터 프레임으로 변환
 data = {
-    'Title': titles,
-    'Score': total_scores,
-    'Address': addresses,
-    'Menu': menus
+    '< Title >': titles,
+    '< Score >': total_scores,
+    '< Address >': addresses,
+    '< Menu >': menus
 }
 df = pd.DataFrame(data)
 
@@ -200,5 +200,5 @@ from tabulate import tabulate
 
 print()
 print('*' * 184)
-print("\n맛집 정보")
+print("\n< 맛집 정보 >")
 print(tabulate(df, headers='keys', tablefmt='plain', showindex=False, numalign='center'))
