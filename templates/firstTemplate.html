@@ -56,15 +56,16 @@
     <h1>클릭으로 팝업 드롭다운 메뉴 예제</h1>
 
     <div>
-        <input type="text" name="daterange" value="" />
-
+        <input type="text" name="daterange" value="f" />
+    
         <script>
             $(function() {
-              var drp = $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-              }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-              });
+                var drp = $('input[name="daterange"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    // Add the code to change the value to "1"
+                    $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + ',' + end.format('YYYY-MM-DD'));
+                });
             });
         </script>
     </div>
@@ -114,6 +115,8 @@
             });
 
             // 선택한 옵션들을 JSON 형태로 출력
+            const dates = $('input[name="daterange"]').val()
+            selectedOptions['dateRange'] = dates
             console.log(JSON.stringify(selectedOptions));
         });
     </script>
