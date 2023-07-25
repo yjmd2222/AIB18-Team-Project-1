@@ -33,7 +33,7 @@ def process():
     return render_template('output.html', location=location, output=output)
 
 def execute_ex_script(location):
-    command = ['python', 'naver_weather.py', location]
+    command = ['python', '03_weather_mango.py', location]
     result = subprocess.run(command, capture_output=True, text=True)
     return result.stdout
 
