@@ -17,7 +17,7 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
         'json 안에 호텔,렌트카,항공권 개별 데이터 처리'
         # 솔직히 리스트였으면 아래 스텝 하나 필요 없음
         list_ = [list(item.values()) for item in json_data_inner] # [[칼럼명,값],...]
-        list_ = [' = :'.join(item) for item in list_] # ['칼럼명 = :값',...]
+        list_ = [' == '.join(item) for item in list_] # ['칼럼명 = :값',...]
         return ' AND '.join(list_) # '칼럼명1 = :값1 AND 칼럼명2 =: 값2,...'
 
     def unfoil_outer_json(json_data_whole:dict):
@@ -40,7 +40,7 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
                 start_date, end_date = v.split(' - ')
                 start_date = datetime.strptime(start_date, r'%m/%d/%Y').strftime(r'%Y-%m-%d %H:%M:%S')
                 end_date = datetime.strptime(end_date, r'%m/%d/%Y').strftime(r'%Y-%m-%d %H:%M:%S')
-                where_date_part = f' AND start_date = :{start_date} AND end_date = :{end_date}'
+                where_date_part = f' AND start_date == {start_date} AND end_date == {end_date}'
                 for k_ in dict_:
                     # 날짜 추가
                     dict_[k_] += where_date_part
@@ -72,8 +72,8 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
         # sql 내에서 계산할 것이 아니라 python에서 계산한다면
         # 가는 표 오는 표 각각 필요할 듯
         # 3. 항공권
-        flight_where_to_jeju = where_dict['항공권'] + ' AND arrival = :CJU'
-        flight_where_from_jeju = where_dict['항공권'] + ' AND departure = :CJU'
+        flight_where_to_jeju = where_dict['항공권'] + ' AND arrival == CJU'
+        flight_where_from_jeju = where_dict['항공권'] + ' AND departure == CJU'
         sql_select_flights_to_jeju = f"""
         SELECT *
         FROM hotels
@@ -95,7 +95,10 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
 
     def get_connection():
         'connection obj return하는 함수'
-        return
+        import sqlite3
+        conn = sqlite3.connect('proj.db')
+
+        return conn
 
     def fetch_data(sql_select)->list:
         'DB에서 데이터 fetch하기'
