@@ -95,6 +95,13 @@
         <button class="submit">예측</button>
     </div>
 
+
+    <form id="myForm" method="post" style="display: none;">
+        <input type="text" name="input_data" id="inputData">
+    </form>
+    <!-- https://stackoverflow.com/questions/14170996/need-help-to-redirect-the-form-on-submit -->
+    <!-- https://www.tutorialspoint.com/how-to-stop-refreshing-the-page-on-submit-in-javascript -->
+    
     <script>
         // JSON 출력을 위한 이벤트 핸들러 추가
         document.querySelector(".submit").addEventListener("click", function () {
