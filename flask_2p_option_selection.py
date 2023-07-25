@@ -11,6 +11,8 @@ sub_menu_names = {
     parent_key: {parent_key + parent_value: [parent_key + parent_value + sub_value for sub_value in sub_values] for parent_value in sub_menus} for parent_key in parent_menus
 }
 
+print(sub_menu_names)
+
 def page_1_wrap_other_funcs(json_data_raw:dict):
     '하나의 함수로 병합'
     def unfoil_inner_json(json_data_inner:list):
@@ -129,4 +131,4 @@ def index():
         print("Received data:", data)
         # Perform any additional processing or database operations with the data here
 
-        return render_template('firstTemplate.html', sub_menu_names=sub_menu_names)
+        return render_template('index.html')

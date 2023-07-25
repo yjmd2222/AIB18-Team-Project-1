@@ -67,19 +67,19 @@
         </script>
     </div>
     
-    {% for category, sub_menus in sub_menu_names.items() %}
-    <div class="dropdown-menu {{ category }} ">
-        <button>{{ category }}</button>
-        <div class="dropdown-content {{ category }}">
-            <p>{{ category }}의 내용입니다.</p>
-            {% for sub_menu, sub_values in sub_menus.items() %}
-            <div class="sub-menu-name sub_menu">
-                <span>{{ sub_menu }}</span>
+    {% for travel_item, columns in options.items() %}
+    <div class="dropdown-menu {{ travel_item }} outer">
+        <button>{{ travel_item }}</button>
+        <div class="dropdown-content {{ travel_item }} inner">
+            <p>{{ travel_item }}의 내용입니다.</p>
+            {% for col_name, values in columns.items() %}
+            <div class="col_name {{ col_name }}">
+                <span>{{ col_name }}</span>
             </div>
-            <select class="sub-menu {{ sub_menu }}" onchange="showSubContent('{{ category }}', this.value)">
-                <option value="">서브 메뉴 선택</option>
-                {% for sub_value in sub_values %}
-                <option value="{{ sub_value }}">{{ sub_value }}</option>
+            <select class="col_name {{ col_name }}" onchange="showSubContent('{{ travel_item }}', this.value)">
+                <option value="">{{ col_name }} 선택</option>
+                {% for value in values %}
+                <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
             </select>
             <br/>
