@@ -62,9 +62,6 @@
             $(function() {
                 var drp = $('input[name="daterange"]').daterangepicker({
                     opens: 'left'
-                }, function(start, end, label) {
-                    // Add the code to change the value to "1"
-                    $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + ',' + end.format('YYYY-MM-DD'));
                 });
             });
         </script>
@@ -122,6 +119,7 @@
             // 선택한 옵션들을 JSON 형태로 출력
             const dates = $('input[name="daterange"]').val()
             selectedOptions['dateRange'] = dates
+            console.log(dates)
             console.log(JSON.stringify(selectedOptions));
 
             // Add the data to the hidden form and submit the form
