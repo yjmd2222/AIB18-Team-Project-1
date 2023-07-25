@@ -100,18 +100,18 @@
         // JSON 출력을 위한 이벤트 핸들러 추가
         document.querySelector(".submit").addEventListener("click", function () {
             const selectedOptions = {};
-            const dropdownMenus = document.querySelectorAll(".sub-menu");
+            const dropdownMenus = document.querySelectorAll(".col_name");
 
             dropdownMenus.forEach((select) => {
-                const category = select.parentElement.className.split(" ")[1];
-                const selectedSubmenuKey = select.className
-                const selectedSubmenuValue = select.value;
+                const travelItem = select.parentElement.className.split(" ")[1];
+                const colName = select.className.split(" ")[1];
+                const value = select.value;
                 
-                if (selectedSubmenuValue !== "") {
-                    if (!selectedOptions[category]) {
-                        selectedOptions[category] = [];
+                if (![null, undefined, ''].includes(value)) {
+                    if (!selectedOptions[travelItem]) {
+                        selectedOptions[travelItem] = [];
                     }
-                    selectedOptions[category].push({subMenuKey: selectedSubmenuKey, subMenuValue: selectedSubmenuValue});
+                    selectedOptions[travelItem].push({col_name: colName, value: value});
                 }
             });
 

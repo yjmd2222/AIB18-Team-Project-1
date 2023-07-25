@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, json
 
 bp = Blueprint('2페이지', __name__, url_prefix='/2페이지')
 
@@ -13,7 +13,7 @@ sub_menu_names = {
 
 print(sub_menu_names)
 
-def page_1_wrap_other_funcs(json_data_raw:dict):
+def page_2_wrap_other_funcs(json_data_raw:dict):
     '하나의 함수로 병합'
     def unfoil_inner_json(json_data_inner:list):
         'json 안에 호텔,렌트카,항공권 개별 데이터 처리'
@@ -31,9 +31,10 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
             '렌트카': None,
             '호텔': None
         }
-        for idx, (k, v) in enumerate(json_data_whole.items()):
+        print(json_data_whole.items())
+        for k, v in json_data_whole.items():
             # 항공권, 렌트카, 호텔이라면
-            if idx != 3:
+            if k != 'dateRange':
                 # str 저장
                 dict_[k] = unfoil_inner_json(v)
             # 날짜라면
@@ -81,7 +82,7 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
         FROM hotels
         WHERE
         {flight_where_to_jeju}
-        ORDER BY ratings DESC
+        ORDER BY adult_charge
         LIMIT 3
         """
         sql_select_flights_from_jeju = f"""
@@ -89,7 +90,7 @@ def page_1_wrap_other_funcs(json_data_raw:dict):
         FROM hotels
         WHERE
         {flight_where_from_jeju}
-        ORDER BY ratings DESC
+        ORDER BY adult_charge
         LIMIT 3
         """
 
@@ -128,7 +129,7 @@ def index():
     if request.method == 'POST':
         # Get the data sent from the form
         data = request.form.get('input_data')
-        print("Received data:", data)
-        # Perform any additional processing or database operations with the data here
+        # print("Received data:", data)
+        print(page_2_wrap_other_funcs(json.loads(data)))
 
         return render_template('index.html')
