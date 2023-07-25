@@ -10,7 +10,6 @@ sub_values = ['옵션'+str(i) for i in range(1,3+1)]
 sub_menu_names = {
     parent_key: {parent_key + parent_value: [parent_key + parent_value + sub_value for sub_value in sub_values] for parent_value in sub_menus} for parent_key in parent_menus
 }
-print(sub_menu_names)
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
