@@ -1,16 +1,17 @@
 from flask import Blueprint, render_template, request, json
-from flask_page_template_settings import travel_item_list
+from flask_page_template_settings import travel_item_list, all_columns_kv
 
 bp = Blueprint('2페이지', __name__, url_prefix='/2페이지')
 
 def page_2_wrap_other_funcs(json_data_raw:dict):
     '하나의 함수로 병합'
-    def unfoil_inner_json(json_data_inner:list):
+    def unfoil_inner_json(travel_item, json_data_inner:list):
         'json 안에 호텔,렌트카,항공권 개별 데이터 처리'
         # 솔직히 리스트였으면 아래 스텝 하나 필요 없음
         list_ = [list(item.values()) for item in json_data_inner] # [[칼럼명,값],...]
-        list_ = [' == \''.join(item)+'\'' for item in list_] # ['칼럼명 = :값',...]
-        return ' AND '.join(list_) # '칼럼명1 = :값1 AND 칼럼명2 =: 값2,...'
+        list_ = [[all_columns_kv[travel_item][item[0]],item[1]] for item in list_] # [[sql_칼럼명,값],...]
+        list_ = [' == \''.join(item)+'\'' for item in list_] # ['칼럼명 == \'값\'',...]
+        return ' AND '.join(list_) # '칼럼명1 == \'값1\' AND 칼럼명2 == \'값2\',...'
 
     def unfoil_outer_json(json_data_whole:dict):
         '전체 json 데이터 정리해서 where문 안에 들어갈 str들로 반환'
@@ -22,7 +23,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict):
             # 항공권, 렌트카, 호텔이라면
             if k != 'dateRange':
                 # list로 감싸서 str 저장. 항공권의 경우 datetime append해야 함
-                dict_[k] = [unfoil_inner_json(v)]
+                dict_[k] = [unfoil_inner_json(k, v)]
                 # 결과 형태: {'호텔': ['col1 == value1 AND col2 == value2... AND end_date == \'2023-07-09 00:00:00\''],...}
                 # 항공권: ['col1 == value1...', (start_date, end_date)]
             # 날짜라면
@@ -41,8 +42,10 @@ def page_2_wrap_other_funcs(json_data_raw:dict):
                 for k_ in dict_:
                     if k_ != travel_item_list[0]:
                         if dict_[k_][0]:
-                            where_date_part = ' AND ' + where_date_part
-                        dict_[k_][0] += where_date_part
+                            where_date_part_ = ' AND ' + where_date_part
+                        else:
+                            where_date_part_ = where_date_part
+                        dict_[k_][0] += where_date_part_
                     else:
                         dict_[k_].append((start_date_flight, end_date_flight))
         return dict_

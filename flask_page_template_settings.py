@@ -6,9 +6,10 @@ car_columns_db = ['brand_name', 'seats', 'size', 'fuel_type', 'transmission_type
 car_columns_disp = ['브랜드', '좌석개수', '사이즈', '연료', '오토/스틱', '렌터카 회사', '나이제한', '운전경력', '연식', '금전 상황']
 hotel_columns_db = ['capacity', '금전_상황']
 hotel_columns_disp = ['인원수', '금전 상황']
-flight_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(flight_columns_db,flight_columns_disp)}
-car_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(car_columns_db,car_columns_disp)}
-hotel_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(hotel_columns_db,hotel_columns_disp)}
+flight_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(flight_columns_disp,flight_columns_db)}
+car_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(car_columns_disp,car_columns_db)}
+hotel_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(hotel_columns_disp,hotel_columns_db)}
+all_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(travel_item_list, (flight_columns_kv, car_columns_kv, hotel_columns_kv))}
 flight_values = [
     ['에어서울', '진에어', '이스타항공', '아시아나항공', '제주항공', '대한항공', '티웨이항공', '에어부산', '하이에어', '에어로케이'],
     ['특가석', '할인석', '일반석', '특가석-환불불가', '특가석-수하물유료'],
