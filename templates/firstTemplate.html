@@ -78,7 +78,7 @@
             <div class="sub-menu-name sub_menu">
                 <span>{{ sub_menu }}</span>
             </div>
-            <select class="sub-menu" onchange="showSubContent('{{ category }}', this.value)">
+            <select class="sub-menu {{ sub_menu }}" onchange="showSubContent('{{ category }}', this.value)">
                 <option value="">서브 메뉴 선택</option>
                 {% for sub_value in sub_values %}
                 <option value="{{ sub_value }}">{{ sub_value }}</option>
@@ -99,20 +99,20 @@
         document.querySelector(".submit").addEventListener("click", function () {
             const selectedOptions = {};
             const dropdownMenus = document.querySelectorAll(".sub-menu");
-    
+
             dropdownMenus.forEach((select) => {
                 const category = select.parentElement.className.split(" ")[1];
-                const selectedSubmenu = select.value;
-                const inputValue = select.nextElementSibling.value; // 새로 추가된 input 요소의 값을 읽어옴
+                const selectedSubmenuKey = select.className
+                const selectedSubmenuValue = select.value;
                 
-                if (selectedSubmenu !== "") {
+                if (selectedSubmenuValue !== "") {
                     if (!selectedOptions[category]) {
                         selectedOptions[category] = [];
                     }
-                    selectedOptions[category].push({ subMenu: selectedSubmenu, value: inputValue });
+                    selectedOptions[category].push({subMenuKey: selectedSubmenuKey, subMenuValue: selectedSubmenuValue});
                 }
             });
-    
+
             // 선택한 옵션들을 JSON 형태로 출력
             console.log(JSON.stringify(selectedOptions));
         });
