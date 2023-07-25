@@ -2,14 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
-# query = sys.argv[1] # flask확인 html용 
+query = sys.argv[1] # flask확인 html용 
 
-# if len(query) > 1:
-#     query = query
-# else:
-#     query = "제주도"
+if len(query) > 1:
+    query = query
+else:
+    query = "제주도"
 
-query= "서귀포" 
+#query= "서귀포" 
 
 html = requests.get(f"https://search.naver.com/search.naver?where=nexearch&query={query}+날씨")
 soup = BeautifulSoup(html.text, 'html.parser')
@@ -112,8 +112,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import sys
 
-#keyword = sys.argv[1]
-keyword="서귀포"
+keyword = sys.argv[1]
+#keyword="서귀포"
 url = f"https://www.mangoplate.com/search/{keyword}"
 
 
