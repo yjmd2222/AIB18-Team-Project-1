@@ -31,26 +31,6 @@ weather_status = weather_data.find('span', {'class': 'weather before_slash'}).te
 print("날씨 상태: " +weather_status)
 
 
-# 주간 날짜
-week_weather_times = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class' : 'week_list'}).find_all('div', {'class' : 'cell_date'})
-
-# 주간 최저/최고 기온
-week_temperature_cells = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class':'week_list'}).find_all('div', {'class':'cell_temperature'})
-
-# 주간 날씨 상태
-#weather_icons = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find('div', {'class': 'cell_weather'}).find_all('span', {'class':'blind'})
-week_weather_icons = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find_all('span', {'class':'blind'})
- 
-
-
-# 주간 합쳐서 프린트하기
-print('')
-print("< 주간 날씨> ")
-print('')
-for a,b,c in zip(week_weather_times, week_temperature_cells,week_weather_icons):
-    print(a.text+ '\t' +b.text+'\t' +c.text)
-
-
 print()
 print('*' * 180) # 가름선
 print("\n< 오늘 시간대 별 날씨 정보 >")
@@ -98,6 +78,36 @@ formatted_output2 = f"{formatted_times_part2}\n{formatted_weathers_part2}\n{form
 print(formatted_output1)
 print()
 print(formatted_output2)
+print()
+print('*' * 180) # 가름선
+# 주간 날짜
+week_weather_times = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find_all('div', {'class': 'cell_date'})
+
+# 주간 최저/최고 기온
+week_temperature_cells = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class':'week_list'}).find_all('div', {'class':'cell_temperature'})
+
+# 주간 날씨 상태
+week_weather_icons = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find_all('span', {'class':'blind'})
+
+
+skip_words=["최고기온", "최저기온"]
+
+filtered_weather_icons = []
+
+for element in week_weather_icons:
+    text = element.get_text()
+
+    if any(skip_word in text for skip_word in skip_words):
+        continue
+    filtered_weather_icons.append(text)
+
+# 주간 합쳐서 프린트하기
+print('')
+print("< 주간 날씨 > ")
+print('')
+for a, b, c in zip(week_weather_times, week_temperature_cells, filtered_weather_icons):
+    print(a.text + '\t' + b.text + '\t' + c)
+
 
 
 
