@@ -85,16 +85,18 @@
             <br/>
             {% endfor %}
             {% if travel_item == '항공권' %}
-            <div class="additional_option_name 성인">
-                <span>성인</span>
+            {% for additional_option_name, values in flight_additional_options.items() %}
+            <div class="additional_option_name {{ additional_option_name }}">
+                <span>{{ additional_option_name }}</span>
             </div>
-            <select class="additional_option_name 성인" onchange="showSubContent('{{ travel_item }}', this.value)">
+            <select class="additional_option_name {{ additional_option_name }}" onchange="showSubContent('{{ travel_item }}', this.value)">
                 <option value="">선택 안 함</option>
-                {% for value in [1,2,3,4] %}
+                {% for value in values %}
                 <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
             </select>
             <br/>
+            {% endfor %}
             {% endif %}
         </div>
     </div>

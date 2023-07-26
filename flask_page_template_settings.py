@@ -54,3 +54,9 @@ for tdx, tuple_ in enumerate(zip((flight_columns_disp, hotel_columns_disp, car_c
 
 # print(options)
 # print(all_columns_kv)
+
+flight_additional_options = {
+    '성인': [1,2,3,4],
+    '아동': [1,2,3,4],
+    '편도/왕복': ['편도', '왕복']
+}
