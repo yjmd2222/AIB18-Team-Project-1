@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Date from August 2023</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Date from August 2023</h1>
+    <form>
+        <label for="datePicker">Choose a date:</label>
+        <input type="date" id="datePicker" name="selectedDate" min="2023-08-01" max="2023-08-31">
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        // Get the form element
+        const form = document.querySelector('form');
+
+        // Handle form submission
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const selectedDate = form.elements.selectedDate.value;
+            alert('Selected date: ' + selectedDate);
+        });
+    </script>
+</body>
+</html>
