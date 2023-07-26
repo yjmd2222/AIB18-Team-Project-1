@@ -146,6 +146,7 @@ def index():
     # Convert the data from URL encoded string to a Python dictionary
     data_dict = page_2_wrap_other_funcs(json.loads(data))
     print(data_dict)
+    print(request.args.get('additional_input_data'))
     
     # Pass the data to the template for the second page
     return render_template('second_page.html', data=data_dict)
