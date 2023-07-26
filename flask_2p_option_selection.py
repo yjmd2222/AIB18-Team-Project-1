@@ -144,5 +144,6 @@ def index():
         data = request.form.get('input_data')
         # print("Received data:", data)
         print(page_2_wrap_other_funcs(json.loads(data)))
+        print(request.form.get('additional_input_data'))
 
         return render_template('index.html')

@@ -108,13 +108,16 @@
 
     <form id="myForm" method="post" style="display: none;" action="/2페이지">
         <input type="text" name="input_data" id="inputData">
+        <input type="text" name="additional_input_data" id="additionalInputData">
     </form>
     
     <script>
         // JSON 출력을 위한 이벤트 핸들러 추가
         document.querySelector(".submit").addEventListener("click", function () {
             const selectedOptions = {};
+            const additionalSelectedOptions = {};
             const columnOptions = document.querySelectorAll(".col_name");
+            const additionalOptions = document.querySelectorAll(".additional_option_name");
 
             columnOptions.forEach((select) => {
                 const travelItem = select.parentElement.className.split(" ")[1];
@@ -129,12 +132,24 @@
                 }
             });
 
+            additionalOptions.forEach((select) => {
+                const colName = select.className.split(" ")[1];
+                const value = select.value;
+                
+                if (![null, undefined, ''].includes(value)) {
+                    additionalSelectedOptions[colName] = value;
+                }
+            });
+
             // 선택한 옵션들을 JSON 형태로 출력
             const dates = $('input[name="daterange"]').val()
             selectedOptions['dateRange'] = dates
 
             // Add the data to the hidden form and submit the form
             document.getElementById("inputData").value = JSON.stringify(selectedOptions);
+            document.getElementById("additionalInputData").value = JSON.stringify(additionalSelectedOptions);
+            // console.log(selectedOptions);
+            // console.log(additionalSelectedOptions);
             document.getElementById("myForm").submit();
         });
     </script>

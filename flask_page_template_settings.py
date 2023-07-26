@@ -6,8 +6,8 @@ travel_item_list_db = ['항공권', '호텔', '렌터카']
 travel_item_list_disp = ['항공권', '숙박시설', '렌터카']
 travel_item_emojis = ['✈️', '🏨', '🚗']
 travel_item_list_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(travel_item_list_disp, travel_item_list_db)}
-flight_columns_db = ['name', 'departure_kor', 'direction', '금전_상황']
-flight_columns_disp = ['항공사', '출발공항', '가는편', '금전상황']
+flight_columns_db = ['name', 'departure_kor', '금전_상황']
+flight_columns_disp = ['항공사', '출발공항', '금전상황']
 flight_columns_db = money_first(flight_columns_db)
 flight_columns_disp = money_first(flight_columns_disp)
 hotel_columns_db = ['capacity', 'region', '금전_상황']
@@ -25,7 +25,6 @@ all_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(travel_item_list_disp, 
 flight_values = [
     ['에어서울', '진에어', '이스타항공', '아시아나항공', '제주항공', '대한항공', '티웨이항공', '에어부산', '하이에어', '에어로케이'],
     ['김포', '제주', '부산', '광주', '무안', '대구', '여수', '울산', '원주', '청주', '포항'],
-    ['come', 'back'],
     ['자린고비', '플렉스', '평범', '가성비', '욜로']
 ]
 flight_values = money_first(flight_values)
