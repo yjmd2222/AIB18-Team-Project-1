@@ -9,6 +9,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict):
         'json 안에 호텔,렌트카,항공권 개별 데이터 처리'
         # 솔직히 리스트였으면 아래 스텝 하나 필요 없음
         list_ = [list(item.values()) for item in json_data_inner] # [[칼럼명,값],...]
+        print(list_)
         list_ = [[all_columns_kv[travel_item][item[0]],item[1]] for item in list_] # [[sql_칼럼명,값],...]
         list_ = [' == \''.join(item)+'\'' for item in list_] # ['칼럼명 == \'값\'',...]
         return ' AND '.join(list_) # '칼럼명1 == \'값1\' AND 칼럼명2 == \'값2\',...'

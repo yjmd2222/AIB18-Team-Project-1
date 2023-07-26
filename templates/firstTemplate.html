@@ -77,7 +77,7 @@
                 <span>{{ col_name }}</span>
             </div>
             <select class="col_name {{ col_name }}" onchange="showSubContent('{{ travel_item }}', this.value)">
-                <option value="">{{ col_name }} 선택</option>
+                <option value="">선택 안 함</option>
                 {% for value in values %}
                 <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
