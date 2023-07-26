@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> 잘 도착했지롱 🌈 </title>
+    <style>
+        .matrix {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .category {
+            width: 30%;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .category h3 {
+            margin-top: 0;
+        }
+        .sub-category {
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+            margin-right: 5%;
+        }
+        .sub-category:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1> 잘 도착했지롱 🌈 </h1>
+
+    <div class="matrix">
+        <div class="category">
+            <h3>항공권</h3>
+            <div class="sub-category">
+                <h4>가는 편</h4>
+                {% for item in data['항공권_to'] %}
+                <input type="radio" id="flightOut{{ loop.index }}" name="flightOut" value="{{ item }}">
+                <label for="flightOut{{ loop.index }}">{{ item }}</label><br>
+                {% endfor %}
+            </div>
+            <div class="sub-category">
+                <h4>오는 편</h4>
+                {% for item in data['항공권_from'] %}
+                <input type="radio" id="flightBack{{ loop.index }}" name="flightBack" value="{{ item }}">
+                <label for="flightBack{{ loop.index }}">{{ item }}</label><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="category">
+            <h3>호텔</h3>
+            {% for item in data['호텔'] %}
+            <input type="radio" id="hotel{{ loop.index }}" name="hotel" value="{{ item }}">
+            <label for="hotel{{ loop.index }}">{{ item }}</label><br>
+            {% endfor %}
+        </div>
+        <div class="category">
+            <h3>렌트카</h3>
+            {% for item in data['렌트카'] %}
+            <input type="radio" id="rental{{ loop.index }}" name="rental" value="{{ item }}">
+            <label for="rental{{ loop.index }}">{{ item }}</label><br>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button onclick="submit()">Submit</button>
+
+    <script>
+        function submit() {
+            var categories = ['flightOut', 'flightBack', 'hotel', 'rental'];
+            for (var i = 0; i < categories.length; i++) {
+                var radios = document.getElementsByName(categories[i]);
+                for (var j = 0; j < radios.length; j++) {
+                    var radio = radios[j];
+                    if (radio.checked) {
+                        console.log(categories[i] + ': ' + radio.value);
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

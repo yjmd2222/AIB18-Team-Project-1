@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, json
 from flask_page_template_settings import travel_item_list_kv, all_columns_kv
+import urllib.request
 
 bp = Blueprint('2페이지', __name__, url_prefix='/2페이지')
 
@@ -137,13 +138,15 @@ def page_2_wrap_other_funcs(json_data_raw:dict):
 
     return {tuple_[0]: fetch_data(tuple_[1]) for tuple_ in zip(keys, sqls)}
 
-@bp.route('/', methods=['POST'])
+@bp.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        # Get the data sent from the form
-        data = request.form.get('input_data')
-        # print("Received data:", data)
-        print(page_2_wrap_other_funcs(json.loads(data)))
-        print(request.form.get('additional_input_data'))
+    # Get the data sent from the form
+    data = request.args.get('input_data', '{}')
 
-        return render_template('index.html')
+    # Convert the data from URL encoded string to a Python dictionary
+    data_dict = page_2_wrap_other_funcs(json.loads(data))
+    print(data_dict)
+    
+    # Pass the data to the template for the second page
+    return render_template('second_page.html', data=data_dict)
+
