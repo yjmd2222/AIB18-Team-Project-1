@@ -71,7 +71,7 @@
     <div class="dropdown-menu {{ travel_item }} outer">
         <button>{{ travel_item }} dddddddddddddddddddddddddddddddddddddd</button>
         <div class="dropdown-content {{ travel_item }} inner">
-            <p>{{ travel_item }}의 내용입니다.</p>
+            <p>{{ travel_item_emojis[loop.index0] }}{{ travel_item }} 옵션을 선택해주세요{{ travel_item_emojis[loop.index0] }}</p>
             {% for col_name, values in columns.items() %}
             <div class="col_name {{ col_name }}">
                 <span>{{ col_name }}</span>
