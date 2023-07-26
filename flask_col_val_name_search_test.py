@@ -1,3 +1,5 @@
+from flask_page_template_settings import *
+
 def get_connection():
     'connection obj return하는 함수'
     import sqlite3
@@ -5,18 +7,15 @@ def get_connection():
 
     return conn
 
-flight_values = [
-
-]
-
-conn = get_connection()
-cur = conn.cursor()
-for idx, columns in enumerate((flight_columns, car_columns, hotel_columns)):
-    travel_item = travel_item_list[idx]
-    for col_name in columns:
-        sql = f'select distinct {col_name} from {travel_item}'
-        cur.execute(sql)
-        rows = cur.fetchall()
-        print(travel_item, col_name, [i[0] for i in rows])
-cur.close()
-conn.close()
+if __name__ == '__main__':
+    conn = get_connection()
+    cur = conn.cursor()
+    for idx, columns in enumerate((flight_columns_db, hotel_columns_db, car_columns_db)):
+        travel_item = travel_item_list_db[idx]
+        for col_name in columns:
+            sql = f'select distinct {col_name} from {travel_item}'
+            cur.execute(sql)
+            rows = cur.fetchall()
+            print(travel_item, col_name, [i[0] for i in rows])
+    cur.close()
+    conn.close()
