@@ -5,9 +5,7 @@ from mangoplate_add import get_mangoplate_info
 bp = Blueprint('3페이지', __name__, url_prefix='/3페이지')
 
 def get_total_price(selected_output:dict):
-    'values str->dict로 형태 변환 후 요금 합산. dict value:dict의 맨 마지막 value'
-    selected_output = {k: json.loads(v.replace("'", '"')) for k,v in selected_output.items()}
-    print(selected_output)
+    '요금 합산. dict value:dict의 맨 마지막 value'
     return sum([list(item.values())[-1] for item in selected_output.values()])
 
 @bp.route('/', methods=['GET'])
@@ -18,7 +16,9 @@ def page_3():
     weather_output = filter_weather_data(start_date, end_date)
     # mangoplate_output = get_mangoplate_info(region)
 
+    # 이해하기 어렵지만 dict value의 dict가 str으로 되어있음.
     selected_output = json.loads(request.args.get('input_data'))
+    selected_output = {k: json.loads(v.replace("'", '"')) for k,v in selected_output.items()}
     total_price = get_total_price(selected_output)
 
     return render_template('page3.html',
