@@ -11,12 +11,12 @@ def page_3():
     weather_output = filter_weather_data(start_date, end_date)
     # mangoplate_output = get_mangoplate_info(keyword)
 
-    selected_data = request.args.get('input_data')
+    selected_output = request.args.get('input_data')
 
-    return render_template('output.html',
+    return render_template('thirdPage.html',
                            start_date=start_date,
                            end_date=end_date,
                            weather_output=weather_output,
-                           selected_data=selected_data,
+                           selected_output=selected_output,
                         #    mangoplate_output=mangoplate_output
                            )
