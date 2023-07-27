@@ -5,8 +5,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import sys
 
-#keyword = sys.argv[1]
-keyword = '제주도'
+keyword = sys.argv[1]
+#keyword = '제주도'
 
 url = f"https://www.mangoplate.com/search/{keyword}"
 

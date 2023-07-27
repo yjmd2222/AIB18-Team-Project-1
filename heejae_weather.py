@@ -29,7 +29,7 @@ def main(start_date, end_date):
     for date in selected_dates:
         weather_data_for_selected_date = load_weather_data(date)
         if weather_data_for_selected_date is not None:
-            output += f" {date}일 날씨 \n" 
+            output += f" 8월 {date}일 날씨 \n" 
             output += weather_data_for_selected_date.to_string(index=False, col_space=25, justify='left')  
         output += "\n" + "-" * 95 + "\n"
     
