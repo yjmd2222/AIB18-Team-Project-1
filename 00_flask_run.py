@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 
 from flask_1p_option_selection import bp as bp_1
 from flask_2p_option_selection import bp as bp_2
-from flask_3p_testing import bp as bp_3
+from flask_3p_result import bp as bp_3
 
 app = Flask(__name__)
 app.register_blueprint(bp_1)
