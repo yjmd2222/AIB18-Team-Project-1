@@ -69,7 +69,9 @@
                 <span>{{ col_name }}</span>
             </div>
             <select class="col_name {{ col_name }}" onchange="showSubContent('{{ travel_item }}', this.value)">
+                {% if col_name != '금전상황' %}
                 <option value="">선택 안 함</option>
+                {% endif %}
                 {% for value in values %}
                 <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
@@ -82,7 +84,9 @@
                 <span>{{ additional_option_name }}</span>
             </div>
             <select class="additional_option_name {{ additional_option_name }}" onchange="showSubContent('{{ travel_item }}', this.value)">
+                {% if additional_option_name != '편도/왕복' %}
                 <option value="">선택 안 함</option>
+                {% endif %}
                 {% for value in values %}
                 <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
