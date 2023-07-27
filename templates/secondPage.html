@@ -28,44 +28,111 @@
 </head>
 <body>
     <h1> 잘 도착했지롱 🌈 </h1>
+    <pre>{{ ' - '.join(date_range) }}</pre>
 
     <div class="matrix">
         <div class="category">
             <h3>항공권</h3>
-            <div class="sub-category">
+            <div class="sub-category", name="항공권_to">
                 <h4>가는 편</h4>
-                <table><tr><th>항공사</th><th>좌석정보</th><th>성인 금액</th><th>출발 시각</th><th>출발 공항(영어)</th><th>도착 공항(영어)</th><th>출발 날짜</th><th>도착 날짜</th><th>Comeback 여부</th><th>소아 금액</th><th>출발 공항(한국어)</th><th>도착 공항(한국어)</th><th>금전상황</th></tr>
-
-                {% for item in data['항공권_to'] %}
-                <table><tr><td><input type="radio" id="flightOut{{ loop.index }}" name="flightOut" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
-                {% endfor %}
-            </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>선택</th>
+                            {% for key in data['항공권_to'][0].keys() %}
+                            <th>{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data['항공권_to'] %}
+                        <tr>
+                            <td>
+                                <input type="radio" id="항공권_to{{ loop.index }}" name="항공권_to" value="{{ item }}">
+                            </td>
+                            {% for item_value in item.values() %}
+                            <td>{{ item_value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <div class="sub-category">
+            <div class="sub-category", name="항공권_from">
                 <h4>오는 편</h4>
-                <table><tr><th>항공사</th><th>좌석정보</th><th>성인 금액</th><th>출발 시각</th><th>출발 공항(영어)</th><th>도착 공항(영어)</th><th>출발 날짜</th><th>도착 날짜</th><th>Comeback 여부</th><th>소아 금액</th><th>출발 공항(한국어)</th><th>도착 공항(한국어)</th><th>금전상황</th></tr>
-
-                {% for item in data['항공권_from'] %}
-                <table><tr><td><input type="radio" id="flightBack{{ loop.index }}" name="flightBack" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
-                {% endfor %}
-            </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>선택</th>
+                            {% for key in data['항공권_from'][0].keys() %}
+                            <th>{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data['항공권_from'] %}
+                        <tr>
+                            <td>
+                                <input type="radio" id="항공권_from{{ loop.index }}" name="항공권_from" value="{{ item }}">
+                            </td>
+                            {% for item_value in item.values() %}
+                            <td>{{ item_value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="category">
+        <div class="category", name="호텔">
             <h3>숙박시설</h3>
-            <table><tr><th>숙박시설명</th><th>지역</th><th>평점</th><th>금액</th><th>시작 날짜</th><th>끝 날짜</th><th>인원 수</th><th>구체 지역명</th><th>금전상황</th></tr>
-
-            {% for item in data['호텔'] %}
-            <table><tr><td><input type="radio" id="hotel{{ loop.index }}" name="hotel" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
-            {% endfor %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>선택</th>
+                        {% for key in data['호텔'][0].keys() %}
+                        <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data['호텔'] %}
+                    <tr>
+                        <td>
+                            <input type="radio" id="호텔{{ loop.index }}" name="호텔" value="{{ item }}">
+                        </td>
+                        {% for item_value in item.values() %}
+                        <td>{{ item_value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="category">
-            <h3>렌트카</h3>
-            <table><tr><th>차종</th><th>브랜드</th><th>인승</th><th>연료</th><th>오토/스틱</th><th>렌트카 회사</th><th>나이 제한</th><th>운전 경력</th><th>연식</th><th>평점</th><th>리뷰 수</th><th>가격</th><th>시작 날짜</th><th>끝 날짜</th><th>금전상황</th></tr>
-
-            {% for item in data['렌트카'] %}
-            <table><tr><td><input type="radio" id="rental{{ loop.index }}" name="rental" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
-            {% endfor %}
+        <div class="category", name="렌트카">
+            <h3>렌터카</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>선택</th>
+                        {% for key in data['렌트카'][0].keys() %}
+                        <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data['렌트카'] %}
+                    <tr>
+                        <td>
+                            <input type="radio" id="렌트카{{ loop.index }}" name="렌트카" value="{{ item }}">
+                        </td>
+                        {% for item_value in item.values() %}
+                        <td>{{ item_value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -79,7 +146,7 @@
     <script>
         function submit() {
             const selectedItems = {};
-            var categories = ['flightOut', 'flightBack', 'hotel', 'rental'];
+            var categories = ['항공권_to', '항공권_from', '호텔', '렌트카'];
             for (var i = 0; i < categories.length; i++) {
                 var radios = document.getElementsByName(categories[i]);
                 for (var j = 0; j < radios.length; j++) {
