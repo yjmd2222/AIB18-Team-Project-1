@@ -153,7 +153,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
         # """
 
         flight_db_name, hotel_db_name, car_db_name = travel_item_kv.values()
-        # 항공권
+        # 항공권: 오가는 표 구분 필요해서 다른 것과는 형식 약간 다름.
         sql_select_flights_to_jeju = add_conditions_sql(flight_db_name, ['direction == \'come\''] + conditions_dict[flight_db_name][0], conditions_dict[flight_db_name][1][0])
         sql_select_flights_from_jeju = add_conditions_sql(flight_db_name, ['direction == \'back\''] + conditions_dict[flight_db_name][0], conditions_dict[flight_db_name][1][1])
 
@@ -163,6 +163,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
         # 렌터카
         sql_select_cars = add_conditions_sql(car_db_name, *conditions_dict[car_db_name])
 
+        # 나중에 삭제. 현재는 디버깅용
         print(sql_select_cars)
         print(sql_select_hotels)
         print(sql_select_flights_to_jeju)
@@ -199,16 +200,53 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     # 추가 옵션: 편도/왕복 적용
     one_way_or_round = additional_options.get('편도/왕복')
     dict_ = {key: [] for key in keys}
-    for i in range(4):
-        if keys[i] == '항공권_from':
+    for idx, key in enumerate(dict_):
+        if idx == 1:
             if one_way_or_round == '편도':
-                dict_[keys[i]] = []
+                dict_[key] = []
             else:
-                dict_[keys[i]] = fetch_data(sqls[i], keys[i])
+                dict_[key] = fetch_data(sqls[idx], key)
         else:
-            dict_[keys[i]] = fetch_data(sqls[i], keys[i])
+            dict_[key] = fetch_data(sqls[idx], key)
 
+    # 디버깅용
     print(dict_)
+
+    # 항공권
+    for list_ in (dict_['항공권_to'], dict_['항공권_from']):
+        for item in list_:
+            item['표종류??'] = item['표종류???_']
+            item['출발 공항'] = item['출발공항(이름)'] + '공항(' + item['출발공항(코드)'] + ')'
+            item['도착 공항'] = item['도착공항(이름)'] + '공항(' + item['도착공항(코드)'] + ')'
+            item['출발 시간'] = item['출발시간(datetime)'][-8:-3]
+            item['도착 시간'] = item['도착시간(datetime)'][-8:-3]
+            for age_group in ('성인', '아동'):
+                num = additional_options.get(age_group)
+                if num:
+                    item[age_group] = num
+                else:
+                    item[age_group] = 0
+            if item['성인'] == item['아동'] == 0:
+                item['성인'] = 1
+            item['총 요금'] = item['성인'] * item['성인요금'] + item['아동'] * item['아동요금']
+            for to_delete in all_columns_kv_2_disp['항공권_to'][1:]: # from과 동일
+                del item[to_delete]
+
+    # 숙박시설
+    for item in dict_['호텔']:
+        item['별점'] = round(item['별점'], 1)
+
+    # 렌터카
+    for item in dict_['렌트카']:
+        item['나이제한'] = str(item['나이제한']) + '세이상'
+        item['운전경력'] = str(item['운전경력']) + '년이상'
+        item['인승'] = str(item['인승']) + '인승'
+        item['별점'] = '-' if item['별점'] == 0 and item['리뷰수'] == 0 else item['별점']
+        del item['리뷰수']
+
+    # 디버깅용
+    print(dict_)
+
 
     return dict_, date_range
 
