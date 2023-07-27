@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, json
 from flask_page_template_settings import (
     travel_item_kv,
     all_columns_kv,
-    travel_item_order_by_kv)
+    all_columns_kv_2,
+    travel_item_order_by_kv,
+    sql_select_keys as keys)
 
 bp = Blueprint('2페이지', __name__, url_prefix='/2페이지')
 
@@ -166,7 +168,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
         print(sql_select_flights_to_jeju)
         print(sql_select_flights_from_jeju)
 
-        return sql_select_cars, sql_select_hotels, sql_select_flights_to_jeju, sql_select_flights_from_jeju
+        return sql_select_flights_to_jeju, sql_select_flights_from_jeju, sql_select_hotels, sql_select_cars
 
     def get_connection():
         'connection obj return하는 함수'
@@ -175,7 +177,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
 
         return conn
 
-    def fetch_data(sql_select)->list:
+    def fetch_data(sql_select, key)->list:
         'DB에서 데이터 fetch하기'
         conn = get_connection()
         cur = conn.cursor()
@@ -183,6 +185,8 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
         cur.execute(sql_select)
 
         rows = cur.fetchall()
+        # 딕셔너리 형태로 결과 반환
+        rows = [{tuple_[0]: tuple_[1] for tuple_ in zip(all_columns_kv_2[key], row)} for row in rows]
 
         cur.close()
         conn.close()
@@ -192,8 +196,6 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     where_dict, date_range = unfoil_outer_json(json_data_raw)
     sqls = return_select_sqls(where_dict)
 
-    keys = ['렌트카', '호텔', '항공권_to', '항공권_from']
-
     # 추가 옵션: 편도/왕복 적용
     one_way_or_round = additional_options.get('편도/왕복')
     dict_ = {key: [] for key in keys}
@@ -202,9 +204,11 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
             if one_way_or_round == '편도':
                 dict_[keys[i]] = []
             else:
-                dict_[keys[i]] = fetch_data(sqls[i])
+                dict_[keys[i]] = fetch_data(sqls[i], keys[i])
         else:
-            dict_[keys[i]] = fetch_data(sqls[i])
+            dict_[keys[i]] = fetch_data(sqls[i], keys[i])
+
+    print(dict_)
 
     return dict_, date_range
 
