@@ -55,7 +55,7 @@ def main():
     for date in selected_dates:
         weather_data_for_selected_date = load_weather_data(date)
         if weather_data_for_selected_date is not None:
-            print(f"Weather data for date: {date}")
+            print(f" {date}일 날씨")
             print(weather_data_for_selected_date.to_string(index=False, col_space=15, justify='left'))  
         print("-" * 80)
 
