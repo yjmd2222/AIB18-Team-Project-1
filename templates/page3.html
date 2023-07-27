@@ -14,9 +14,97 @@
     <pre>{{mangoplate_output }}</pre>
 
     <h2> 여행 경비 정보 </h2>
-    <pre>{{ selected_output }}</pre>
+    <div class="matrix">
+        <div class="category">
+            <h3>항공권</h3>
+            <div class="sub-category", name="항공권_to">
+                {% if selected_output['항공권_to']|length > 0 %}
+                <h4>가는 편</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for key in selected_output['항공권_to'].keys() %}
+                            <th name="{{ key }}">{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for key, value in selected_output['항공권_to'].items() %}
+                            <td name="{{ key }}">{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+            <div class="sub-category", name="항공권_from">
+                {% if selected_output['항공권_from']|length > 0 %}
+                <h4>오는 편</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for key in selected_output['항공권_from'].keys() %}
+                            <th name="{{ key }}">{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for key, value in selected_output['항공권_from'].items() %}
+                            <td name="{{ key }}">{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        <div class="category", name="호텔">
+            {% if selected_output['호텔']|length > 0 %}
+            <h3>숙박시설</h3>
+            <table>
+                <thead>
+                    <tr>
+                        {% for key in selected_output['호텔'].keys() %}
+                        <th name="{{ key }}">{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for key, value in selected_output['호텔'].items() %}
+                        <td name="{{ key }}">{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <div class="category", name="렌트카">
+            {% if selected_output['렌트카']|length > 0 %}
+            <h3>렌터카</h3>
+            <table>
+                <thead>
+                    <tr>
+                        {% for key in selected_output['렌트카'].keys() %}
+                        <th name="{{ key }}">{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for key, value in selected_output['렌트카'].items() %}
+                        <td name="{{ key }}">{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
 
-    <h2> 총 금액 </h2>
+    <h3> 총 금액 </h3>
     <pre>{{ total_price }}</pre>
 </body>
 </html>
