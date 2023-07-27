@@ -32,6 +32,8 @@ def index():
 def process():
     start_date = request.form['start_date']  # Get the value of the 'start_date' input
     end_date = request.form['end_date']  # Get the value of the 'end_date' input
+    
+    #location= request.form['location']
     output = main(start_date, end_date)  # Call the main function from 05.py with the start_date and end_date
     
     return render_template('output.html', start_date=start_date, end_date=end_date, output=output)
