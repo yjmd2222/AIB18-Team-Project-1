@@ -9,9 +9,12 @@ sql_select_keys = ['항공권_to', '항공권_from', '호텔', '렌트카']
 
 #  <항공권>
 
-flight_all_columns_disp = ['항공사', '표_종류', '성인요금', '출발시간(hour)', '출발공항(코드)', '도착공항(코드)',
-                           '출발시간(datetime)', '도착시간(datetime)', '제주도로_come_back', '아동요금', '출발공항(이름)', '도착공항(이름)',
-                           '금전상황']
+# flight_select_columns_db = ['name', 'seat', 'adult_charge', 'leavehour', 'departure', 'arrival',
+#                          'departure_datetime', 'arrival_datetime', 'direction', 'child_charge', 'departure_kor', 'arrival_kor', '금전_상황']
+# flight_select_columns_disp = ['항공사', '표_종류', '성인요금', '출발시간(hour)', '출발공항(코드)', '도착공항(코드)',
+#                            '출발시간(datetime)', '도착시간(datetime)', '제주도로_come_back', '아동요금', '출발공항(이름)', '도착공항(이름)', '금전상황']
+flight_select_columns_db = ['금전_상황', 'departure_kor', 'arrival_kor', 'departure', 'arrival', 'departure_datetime', 'arrival_datetime', 'leavehour', 'direction', 'adult_charge']
+flight_select_columns_disp = ['금전상황', '출발공항(이름)', '도착공항(이름)', '출발공항(코드)', '도착공항(코드)', '출발시간(datetime)', '도착시간(datetime)', '출발시간(hour)', '어디로갈까', '성인요금']
 flight_columns_db = ['금전_상황', 'departure_kor','name' ]
 flight_columns_disp = [ '금전상황', '출발공항', '항공사']
 flight_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(flight_columns_disp,flight_columns_db)}
@@ -25,7 +28,10 @@ flight_values = [
 
 # <호텔>
 
-hotel_all_columns_disp = ['숙박시설명', '지역(세부)', '별점', '요금', '체크인', '체크아웃', '인원수', '지역(간소)', '금전상황']
+# hotel_select_columns_db = ['hotel_name', 'region', 'ratings', 'price', 'start_date', 'end_date', 'capacity', 'new_region', '금전_상황']
+# hotel_select_columns_disp = ['숙박시설명', '지역(세부)', '별점', '요금', '체크인', '체크아웃', '인원수', '지역(간소)', '금전상황']
+hotel_select_columns_db = ['금전_상황', 'hotel_name', 'capacity', 'region', 'ratings']
+hotel_select_columns_disp = ['금전상황', '숙박시설', '인원수', '지역', '별점']
 hotel_columns_db = ['금전_상황', 'region', 'capacity' ]
 hotel_columns_disp = ['금전상황', '지역','인원수' ]
 hotel_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(hotel_columns_disp,hotel_columns_db)}
@@ -39,7 +45,12 @@ hotel_values = [
 
 # <렌터카>
 
-car_all_columns_disp = ['차?이름?', '브랜드', '인승', '차종', '연료', '오토/스틱', '렌터카회사', '나이제한', '운전경력', '연식', '별점', '리뷰수', '요금', '대여일', '반납일', '금전상황']
+car_select_columns_db = ['car_name', 'brand_name', 'seats', 'size', 'fuel_type', 'transmission_type', 'rental_company_name',
+                      'age_req', 'driving_experience', 'year', 'ratings', 'num_ratings', 'price', 'start_date', 'end_date', '금전_상황']
+car_select_columns_disp = ['차?이름?', '브랜드', '인승', '차종', '연료', '오토/스틱', '렌터카회사',
+                        '나이제한', '운전경력', '연식', '별점', '리뷰수', '요금', '대여일', '반납일', '금전상황']
+car_select_columns_db = ['금전_상황', 'age_req', 'size', 'seats', 'brand_name', 'fuel_type', 'transmission_type', 'driving_experience', 'year', 'ratings', 'price']
+car_select_columns_disp = ['금전상황', '나이제한', '차종', '인승', '브랜드', '연료', '오토/스틱', '운전경력', '연식', '별점', '요금']
 car_columns_db = [ '금전_상황', 'age_req', 'size', 'seats','brand_name', 'fuel_type', 'transmission_type', 'driving_experience']
 car_columns_disp = ['금전상황', '나이제한', '차종', '인승', '브랜드', '연료', '오토/스틱', '운전경력' ]
 car_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(car_columns_disp,car_columns_db)}
@@ -58,10 +69,14 @@ car_values = [
 # 1페이지에 보여지는 칼럼들
 all_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(travel_item_list_disp, (flight_columns_kv, hotel_columns_kv, car_columns_kv))}
 # 2페이지에 보여지는 칼럼들
-all_columns_kv_2 = {tuple_[0]: tuple_[1] for tuple_ in zip(sql_select_keys, (flight_all_columns_disp,
-                                                                             flight_all_columns_disp,
-                                                                             hotel_all_columns_disp,
-                                                                             car_all_columns_disp))}
+all_columns_kv_2_disp = {tuple_[0]: tuple_[1] for tuple_ in zip(sql_select_keys, (flight_select_columns_disp,
+                                                                             flight_select_columns_disp,
+                                                                             hotel_select_columns_disp,
+                                                                             car_select_columns_disp))}
+# 2페이지에서 SELECT에 입력할 칼럼들
+all_columns_kv_2_select = {tuple_[0]: tuple_[1] for tuple_ in zip(travel_item_list_db, (flight_select_columns_db,
+                                                                             hotel_select_columns_db,
+                                                                             car_select_columns_db))}
 
 options = {travel_item: {} for travel_item in travel_item_list_disp}
 for tdx, tuple_ in enumerate(zip((flight_columns_disp, hotel_columns_disp, car_columns_disp), (flight_values, hotel_values, car_values))):

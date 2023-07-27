@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, json
 from flask_page_template_settings import (
     travel_item_kv,
     all_columns_kv,
-    all_columns_kv_2,
+    all_columns_kv_2_disp,
+    all_columns_kv_2_select,
     travel_item_order_by_kv,
     sql_select_keys as keys)
 
@@ -50,8 +51,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
 
     def add_conditions_sql(travel_item, conditions, date_condition):
         '여러 조건문 적용 시 빈 테이블이면 조건 무시'
-        sql = f'WITH Step0 AS (SELECT * FROM {travel_item} WHERE {date_condition})'
-        # for idx, condition in enumerate(conditions):
+        sql = f'WITH Step0 AS (SELECT {", ".join(all_columns_kv_2_select[travel_item])} FROM {travel_item} WHERE {date_condition})'
         idx = 0
         while idx < len(conditions):
             if idx+1 == 1:
@@ -186,7 +186,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
 
         rows = cur.fetchall()
         # 딕셔너리 형태로 결과 반환
-        rows = [{tuple_[0]: tuple_[1] for tuple_ in zip(all_columns_kv_2[key], row)} for row in rows]
+        rows = [{tuple_[0]: tuple_[1] for tuple_ in zip(all_columns_kv_2_disp[key], row)} for row in rows]
 
         cur.close()
         conn.close()
