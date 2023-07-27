@@ -1,7 +1,14 @@
 from flask import Flask, render_template, request
+
 from heejae_weather import main  # import the main function from 05_weather_dat.py
+from flask_1p_option_selection import bp as bp_1
+from flask_2p_option_selection import bp as bp_2
+from flask_3p_testing import bp as bp_3
 
 app = Flask(__name__)
+app.register_blueprint(bp_1)
+app.register_blueprint(bp_2)
+app.register_blueprint(bp_3)
 
 @app.route('/')
 def index():
@@ -42,32 +49,32 @@ if __name__ == '__main__':
     app.run()
 
 
-from flask import Flask, render_template, request
-import subprocess
+# from flask import Flask, render_template, request
+# import subprocess
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return '''
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Our Company</title>
-        </head>
-        <body>
-            <h1>제주도 날씨와 맛집🍊</h1>
-            <h2></h2>
-            <p>↓위치를 입력해주세요 ↓  </p>
-            <form action="/process" method="post">
-                <h2>
-                    <input type="text" name="location" 위치="위치" placeholder="현재 위치">
-                </h2>
-                <button type="submit">입력 (●'ᴗ'●)ﾉ♥</button>
-            </form>
-        </body>
-        </html>
-    '''
+# @app.route('/')
+# def index():
+#     return '''
+#         <!DOCTYPE html>
+#         <html>
+#         <head>
+#             <title>Our Company</title>
+#         </head>
+#         <body>
+#             <h1>제주도 날씨와 맛집🍊</h1>
+#             <h2></h2>
+#             <p>↓위치를 입력해주세요 ↓  </p>
+#             <form action="/process" method="post">
+#                 <h2>
+#                     <input type="text" name="location" 위치="위치" placeholder="현재 위치">
+#                 </h2>
+#                 <button type="submit">입력 (●'ᴗ'●)ﾉ♥</button>
+#             </form>
+#         </body>
+#         </html>
+#     '''
 
 # 기존 
 # @app.route('/process', methods=['POST'])
