@@ -30,8 +30,8 @@ flight_values = [
 
 # hotel_select_columns_db = ['hotel_name', 'region', 'ratings', 'price', 'start_date', 'end_date', 'capacity', 'new_region', '금전_상황']
 # hotel_select_columns_disp = ['숙박시설명', '지역(세부)', '별점', '요금', '체크인', '체크아웃', '인원수', '지역(간소)', '금전상황']
-hotel_select_columns_db = ['금전_상황', 'hotel_name', 'capacity', 'region', 'ratings']
-hotel_select_columns_disp = ['금전상황', '숙박시설', '인원수', '지역', '별점']
+hotel_select_columns_db = ['금전_상황', 'hotel_name', 'capacity', 'region', 'ratings', 'price']
+hotel_select_columns_disp = ['금전상황', '숙박시설', '인원수', '지역', '별점', '요금']
 hotel_columns_db = ['금전_상황', 'region', 'capacity' ]
 hotel_columns_disp = ['금전상황', '지역','인원수' ]
 hotel_columns_kv = {tuple_[0]: tuple_[1] for tuple_ in zip(hotel_columns_disp,hotel_columns_db)}
