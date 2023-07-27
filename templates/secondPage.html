@@ -39,9 +39,9 @@
                     <thead>
                         <tr>
                             {% if data['항공권_to']|length > 0 %}
-                            <th>선택</th>
+                            <th name="선택">선택</th>
                             {% for key in data['항공권_to'][0].keys() %}
-                            <th>{{ key }}</th>
+                            <th name="{{ key }}">{{ key }}</th>
                             {% endfor %}
                             {% endif %}
                         </tr>
@@ -50,11 +50,11 @@
                         {% if data['항공권_to']|length > 0 %}
                         {% for item in data['항공권_to'] %}
                         <tr>
-                            <td>
+                            <td name="선택">
                                 <input type="radio" id="항공권_to{{ loop.index }}" name="항공권_to" value="{{ item }}">
                             </td>
-                            {% for item_value in item.values() %}
-                            <td>{{ item_value }}</td>
+                            {% for key, value in item.items() %}
+                            <td name="{{ key }}">{{ value }}</td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
@@ -68,9 +68,9 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>선택</th>
+                            <th name="선택">선택</th>
                             {% for key in data['항공권_from'][0].keys() %}
-                            <th>{{ key }}</th>
+                            <th name="{{ key }}">{{ key }}</th>
                             {% endfor %}
                         </tr>
                     </thead>
@@ -78,11 +78,11 @@
                         {% if data['항공권_from']|length > 0 %}
                         {% for item in data['항공권_from'] %}
                         <tr>
-                            <td>
+                            <td name="선택">
                                 <input type="radio" id="항공권_from{{ loop.index }}" name="항공권_from" value="{{ item }}">
                             </td>
-                            {% for item_value in item.values() %}
-                            <td>{{ item_value }}</td>
+                            {% for key, value in item.items() %}
+                            <td name="{{ key }}">{{ value }}</td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
@@ -97,10 +97,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>선택</th>
+                        <th name="선택">선택</th>
                         {% if data['호텔']|length > 0 %}
                         {% for key in data['호텔'][0].keys() %}
-                        <th>{{ key }}</th>
+                        <th name="{{ key }}">{{ key }}</th>
                         {% endfor %}
                         {% endif %}
                     </tr>
@@ -108,12 +108,13 @@
                 <tbody>
                     {% if data['호텔']|length > 0 %}
                     {% for item in data['호텔'] %}
+                    {% set parent_loop = loop %}
                     <tr>
-                        <td>
+                        <td name="선택" class="호텔{{ loop.index }}">
                             <input type="radio" id="호텔{{ loop.index }}" name="호텔" value="{{ item }}">
                         </td>
-                        {% for item_value in item.values() %}
-                        <td>{{ item_value }}</td>
+                        {% for key, value in item.items() %}
+                        <td name="{{ key }}" id="호텔{{ parent_loop.index }}-{{ key }}">{{ value }}</td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
@@ -126,10 +127,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>선택</th>
+                        <th name="선택">선택</th>
                         {% if data['렌트카']|length > 0 %}
                         {% for key in data['렌트카'][0].keys() %}
-                        <th>{{ key }}</th>
+                        <th name="{{ key }}">{{ key }}</th>
                         {% endfor %}
                         {% endif %}
                     </tr>
@@ -138,11 +139,11 @@
                     {% if data['렌트카']|length > 0 %}
                     {% for item in data['렌트카'] %}
                     <tr>
-                        <td>
+                        <td name="선택">
                             <input type="radio" id="렌트카{{ loop.index }}" name="렌트카" value="{{ item }}">
                         </td>
-                        {% for item_value in item.values() %}
-                        <td>{{ item_value }}</td>
+                        {% for key, value in item.items() %}
+                        <td name="{{ key }}">{{ value }}</td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
@@ -157,11 +158,13 @@
     <form id="myForm" method="get" style="display: none;" action="/3페이지">
         <input type="text" name="input_data" id="inputData">
         <input type="text" name="date_range" id="dateRange">
+        <input type="text" name="region" id="region">
     </form>
 
     <script>
         function submit() {
             const selectedItems = {};
+            let region = null;
             var categories = ['항공권_to', '항공권_from', '호텔', '렌트카'];
             for (var i = 0; i < categories.length; i++) {
                 var radios = document.getElementsByName(categories[i]);
@@ -169,13 +172,16 @@
                     var radio = radios[j];
                     if (radio.checked) {
                         selectedItems[categories[i]] = radio.value;
+                        if (categories[i] == '호텔'){
+                            region = document.getElementById(`${categories[i]}${j}-지역`).textContent
+                        }
                         break;
                     }
                 }
             }
-            console.log(selectedItems);
             document.getElementById("inputData").value = JSON.stringify(selectedItems);
             document.getElementById("dateRange").value = "{{ date_range }}"
+            document.getElementById('region').value = region
             document.getElementById("myForm").submit();
         }
     </script>
