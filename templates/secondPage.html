@@ -4,12 +4,11 @@
     <title> 잘 도착했지롱 🌈 </title>
     <style>
         .matrix {
-            display: flex;
-            justify-content: space-between;
+            display: block;
             margin-bottom: 20px;
         }
         .category {
-            width: 30%;
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
         }
@@ -35,31 +34,37 @@
             <h3>항공권</h3>
             <div class="sub-category">
                 <h4>가는 편</h4>
+                <table><tr><th>항공사</th><th>좌석정보</th><th>성인 금액</th><th>출발 시각</th><th>출발 공항(영어)</th><th>도착 공항(영어)</th><th>출발 날짜</th><th>도착 날짜</th><th>Comeback 여부</th><th>소아 금액</th><th>출발 공항(한국어)</th><th>도착 공항(한국어)</th><th>금전상황</th></tr>
+
                 {% for item in data['항공권_to'] %}
-                <input type="radio" id="flightOut{{ loop.index }}" name="flightOut" value="{{ item }}">
-                <label for="flightOut{{ loop.index }}">{{ item }}</label><br>
+                <table><tr><td><input type="radio" id="flightOut{{ loop.index }}" name="flightOut" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
                 {% endfor %}
+            </table>
             </div>
             <div class="sub-category">
                 <h4>오는 편</h4>
+                <table><tr><th>항공사</th><th>좌석정보</th><th>성인 금액</th><th>출발 시각</th><th>출발 공항(영어)</th><th>도착 공항(영어)</th><th>출발 날짜</th><th>도착 날짜</th><th>Comeback 여부</th><th>소아 금액</th><th>출발 공항(한국어)</th><th>도착 공항(한국어)</th><th>금전상황</th></tr>
+
                 {% for item in data['항공권_from'] %}
-                <input type="radio" id="flightBack{{ loop.index }}" name="flightBack" value="{{ item }}">
-                <label for="flightBack{{ loop.index }}">{{ item }}</label><br>
+                <table><tr><td><input type="radio" id="flightBack{{ loop.index }}" name="flightBack" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
                 {% endfor %}
+            </table>
             </div>
         </div>
         <div class="category">
             <h3>숙박시설</h3>
+            <table><tr><th>숙박시설명</th><th>지역</th><th>평점</th><th>금액</th><th>시작 날짜</th><th>끝 날짜</th><th>인원 수</th><th>구체 지역명</th><th>금전상황</th></tr>
+
             {% for item in data['호텔'] %}
-            <input type="radio" id="hotel{{ loop.index }}" name="hotel" value="{{ item }}">
-            <label for="hotel{{ loop.index }}">{{ item }}</label><br>
+            <table><tr><td><input type="radio" id="hotel{{ loop.index }}" name="hotel" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
             {% endfor %}
         </div>
         <div class="category">
             <h3>렌트카</h3>
+            <table><tr><th>차종</th><th>브랜드</th><th>인승</th><th>연료</th><th>오토/스틱</th><th>렌트카 회사</th><th>나이 제한</th><th>운전 경력</th><th>연식</th><th>평점</th><th>리뷰 수</th><th>가격</th><th>시작 날짜</th><th>끝 날짜</th><th>금전상황</th></tr>
+
             {% for item in data['렌트카'] %}
-            <input type="radio" id="rental{{ loop.index }}" name="rental" value="{{ item }}">
-            <label for="rental{{ loop.index }}">{{ item }}</label><br>
+            <table><tr><td><input type="radio" id="rental{{ loop.index }}" name="rental" value="{{ item }}"></td>{% for cell in item %}<td>{{ cell }}</td>{% endfor %}</tr></table><br>
             {% endfor %}
         </div>
     </div>
