@@ -16,7 +16,7 @@
             margin-top: 0;
         }
         .sub-category {
-            display: inline-block;
+            /* display: inline-block; */
             vertical-align: top;
             width: 45%;
             margin-right: 5%;
@@ -28,7 +28,7 @@
 </head>
 <body>
     <h1> 잘 도착했지롱 🌈 </h1>
-    <pre>{{ ' - '.join(date_range) }}</pre>
+    <h3>여행 기간: {{ ' - '.join(date_range) }}</h3>
 
     <div class="matrix">
         <div class="category">
@@ -38,13 +38,16 @@
                 <table>
                     <thead>
                         <tr>
+                            {% if data['항공권_to']|length > 0 %}
                             <th>선택</th>
                             {% for key in data['항공권_to'][0].keys() %}
                             <th>{{ key }}</th>
                             {% endfor %}
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
+                        {% if data['항공권_to']|length > 0 %}
                         {% for item in data['항공권_to'] %}
                         <tr>
                             <td>
@@ -55,10 +58,12 @@
                             {% endfor %}
                         </tr>
                         {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
             <div class="sub-category", name="항공권_from">
+                {% if data['항공권_from']|length > 0 %}
                 <h4>오는 편</h4>
                 <table>
                     <thead>
@@ -70,6 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% if data['항공권_from']|length > 0 %}
                         {% for item in data['항공권_from'] %}
                         <tr>
                             <td>
@@ -80,8 +86,10 @@
                             {% endfor %}
                         </tr>
                         {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
+                {% endif %}
             </div>
         </div>
         <div class="category", name="호텔">
@@ -90,12 +98,15 @@
                 <thead>
                     <tr>
                         <th>선택</th>
+                        {% if data['호텔']|length > 0 %}
                         {% for key in data['호텔'][0].keys() %}
                         <th>{{ key }}</th>
                         {% endfor %}
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
+                    {% if data['호텔']|length > 0 %}
                     {% for item in data['호텔'] %}
                     <tr>
                         <td>
@@ -106,6 +117,7 @@
                         {% endfor %}
                     </tr>
                     {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>
@@ -115,12 +127,15 @@
                 <thead>
                     <tr>
                         <th>선택</th>
+                        {% if data['렌트카']|length > 0 %}
                         {% for key in data['렌트카'][0].keys() %}
                         <th>{{ key }}</th>
                         {% endfor %}
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
+                    {% if data['렌트카']|length > 0 %}
                     {% for item in data['렌트카'] %}
                     <tr>
                         <td>
@@ -131,6 +146,7 @@
                         {% endfor %}
                     </tr>
                     {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>
