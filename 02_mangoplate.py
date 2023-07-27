@@ -11,13 +11,13 @@ keyword = '제주도'
 url = f"https://www.mangoplate.com/search/{keyword}"
 
 #크롬창 없이 실행 - gui 없이 실행
-# from selenium.webdriver.chrome.options import Options
-# chrome_options = Options()
-# chrome_options.add_argument("--headless")  
-# driver = webdriver.Chrome(options = chrome_options) # GUI 없이 런 / 크롬창 없이
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument("--headless")  
+driver = webdriver.Chrome(options = chrome_options) # GUI 없이 런 / 크롬창 없이
 
 
-driver = webdriver.Chrome() #크롬창 (실행 확인용) - 위
+#driver = webdriver.Chrome() #크롬창 (실행 확인용) - 위
 
 
 driver.get(url)

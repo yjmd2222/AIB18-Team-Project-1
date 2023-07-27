@@ -40,7 +40,7 @@ week_temperature_cells = soup.find('div', {'class': 'list_box _weekly_weather'})
 # 주간 날씨 상태
 #weather_icon = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find('div', {'class': 'cell_weather'}).find_all('span', {'class':'blind'})
 week_weather_icons = soup.find('div', {'class': 'list_box _weekly_weather'}).find('ul', {'class': 'week_list'}).find_all('span', {'class':'blind'})
-# 너 진짜 왜 그러니? 언니 피곤하다 
+
 
 
 # 주간 합쳐서 프린트하기
