@@ -14,7 +14,7 @@ def page_3():
 
     selected_output = request.args.get('input_data')
 
-    return render_template('thirdPage.html',
+    return render_template('page3.html',
                            start_date=start_date,
                            end_date=end_date,
                            region=region,

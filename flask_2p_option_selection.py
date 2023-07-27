@@ -261,4 +261,4 @@ def page_2():
     # print(data_dict)
     
     # Pass the data to the template for the second page
-    return render_template('secondPage.html', data=data_dict, date_range=date_range)
+    return render_template('page2.html', data=data_dict, date_range=date_range)
