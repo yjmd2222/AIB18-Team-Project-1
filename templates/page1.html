@@ -18,6 +18,7 @@
             background-image: url("{{ url_for('static', filename='background.png') }}");
             background-size: cover; /* 배경 이미지를 화면에 맞게 조절 */
             background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+            background-position: center; /* 배경 이미지를 가운데로 정렬 */
             background-attachment: fixed;
         }
         .daterangepicker-container{
@@ -26,7 +27,7 @@
         }
 
         input[type="text"] {
-            width: 220px; /* Set the width as per your preference (e.g., 250px) */
+            width: 250px; /* Set the width as per your preference (e.g., 250px) */
             height: 25px; /* Set the height as per your preference */
             font-size: 20px; /* Set the font size to your desired value (e.g., 16px) */
             text-align: center;
@@ -46,6 +47,8 @@
         .dropdown-menu {
             position: relative;
             display: inline-block;
+            border: none;
+            margin: 10px;
         }
 
         .dropdown-content {
@@ -62,20 +65,8 @@
             z-index: 2;
         }
 
-        /* 서브 메뉴 이름 스타일 */
-        .sub-menu-name {
-            display: inline-flex; /* 가로로 정렬 */
-            align-items: center; /* 세로 중앙 정렬 */
-            margin-right: 8px;
-            white-space: nowrap;
-        }
-
-        /* 서브 메뉴 버튼 스타일 */
-        .sub-menu {
-            display: inline-flex; /* 가로로 정렬 */
-            align-items: center; /* 세로 중앙 정렬 */
-            /* 가로 정렬 추가 */
-            vertical-align: middle;
+        select {
+            min-width: 150px;
         }
     </style>
 </head>

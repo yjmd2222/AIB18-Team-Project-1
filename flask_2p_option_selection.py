@@ -53,6 +53,8 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     def add_conditions_sql(travel_item, conditions, date_condition):
         '여러 조건문 적용 시 빈 테이블이면 조건 무시'
         sql = f'WITH Step0 AS (SELECT {", ".join(all_columns_kv_2_select[travel_item])} FROM {travel_item} WHERE {date_condition})'
+        if travel_item == '호텔':
+            sql = sql[:-1] + ' GROUP BY hotel_name)'
         idx = 0
         while idx < len(conditions):
             if idx+1 == 1:
