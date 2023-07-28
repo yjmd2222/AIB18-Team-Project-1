@@ -93,10 +93,15 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                     )
                     '''
             idx += 1
-        if idx == 0:
-            sql += f' SELECT * FROM Step0 ORDER BY {travel_item_order_by_kv[travel_item]} LIMIT 3'
+        order_by = f'{travel_item_order_by_kv[travel_item]}'
+        if travel_item == '항공권':
+            order_by = f'{order_by} ASC'
         else:
-            sql += f''' SELECT * FROM Step{idx}check ORDER BY {travel_item_order_by_kv[travel_item]} LIMIT 3'''
+            order_by = f'{order_by} DESC'
+        if idx == 0:
+                sql += f' SELECT * FROM Step0 ORDER BY {order_by} LIMIT 3'
+        else:
+            sql += f''' SELECT * FROM Step{idx}check ORDER BY {order_by} LIMIT 3'''
         return sql
 
     # print(add_conditions_sql('렌터카', ['brand_name == \'현대\'', 'seats == 5', 'transmission_type == \'수동\'', 'fuel_type == \'휘발유\''], 'start_date == \'2023-07-27 00:00:00\' AND end_date == \'2023-07-28 00:00:00\''))
