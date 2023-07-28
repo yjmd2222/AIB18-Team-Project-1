@@ -8,27 +8,30 @@
     
     <style>
         body {
-        display: flex; /* Flex 컨테이너로 설정 */
-        flex-direction: column;
-        justify-content: center; /* 가로 가운데 정렬 */
-        align-items: center; /* 세로 가운데 정렬 */
+            display: flex; /* Flex 컨테이너로 설정 */
+            flex-direction: column;
+            justify-content: center; /* 가로 가운데 정렬 */
+            align-items: center; /* 세로 가운데 정렬 */
+            background-image: url("{{ url_for('static', filename='background.png') }}");
+            background-size: cover; /* 배경 이미지를 화면에 맞게 조절 */
+            background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+            background-position: center; /* 배경 이미지를 가운데로 정렬 */
+            background-attachment: fixed;
         }
         .matrix {
             display: block;
             margin-bottom: 20px;
         }
-        .parent-category {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
         .category {
+            background-color: rgba(255,255,255,0.7);
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
         }
-        .category h3 {
-            margin-top: 0;
+        .subcategory {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
         }
         tbody {
         border: 2px solid #dee2e6;
@@ -45,9 +48,9 @@
     <h3>여행 기간: {{ ' ~ '.join(date_range) }}</h3>
 
     <div class="matrix">
-        <div class="parent-category">
+        <div class="category">
             <h3>항공권</h3>
-            <div class="category", name="항공권_to">
+            <div class="subcategory", name="항공권_to">
                 <h4>가는 편</h4>
                 <table class="table text-center">
                     <thead class="table-light">
@@ -80,7 +83,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="category", name="항공권_from">
+            <div class="subcategory", name="항공권_from">
                 {% if data['항공권_from']|length > 0 %}
                 <h4>오는 편</h4>
                 <table class="table text-center">
@@ -114,7 +117,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="parent-category", name="호텔">
+        <div class="category", name="호텔">
             <h3>숙박시설</h3>
             <table class="table text-center">
                 <thead class="table-light">
@@ -148,7 +151,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="parent-category", name="렌트카">
+        <div class="category", name="렌트카">
             <h3>렌터카</h3>
             <table class="table text-center">
                 <thead class="table-light">
