@@ -65,19 +65,27 @@
             z-index: 2;
         }
 
+        .select-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
         select {
             min-width: 150px;
+        }
+
+        .submit-container {
+            position: fixed;
+            bottom: 150px;
         }
     </style>
 </head>
 <body>
     <h1> 잘 도착했지롱 🌈 </h1>
-
     <div class="daterangepicker-container">
-        <h3>여행 날짜를 선택해주세요   </h3>
+        <h3>여행 기간을 선택해주세요</h3>
         <input type="text" name="daterange" value="" />
     </div>
-    
     <div class="button-container">
     {% for travel_item, columns in options.items() %}
     <div class="dropdown-menu {{ travel_item }} outer">
@@ -104,6 +112,7 @@
             {% endfor %}
             {% if travel_item == '항공권' %}
             {% for additional_option_name, values in flight_additional_options.items() %}
+            <div class="select-container">
             <div class="additional_option_name {{ additional_option_name }}">
                 <span>{{ additional_option_name }}</span>
             </div>
@@ -119,6 +128,7 @@
                 {% endif %}
                 {% endfor %}
             </select>
+            </div>
             <br/>
             {% endfor %}
             {% endif %}
@@ -127,7 +137,7 @@
     {% endfor %}
     </div>
 
-    <div>
+    <div class="submit-container">
         <button class="submit">조회하기</button>
     </div>
 

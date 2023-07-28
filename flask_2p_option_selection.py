@@ -231,7 +231,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
             for age_group in ('성인', '아동'):
                 num = additional_options.get(age_group)
                 if num:
-                    item[age_group] = num
+                    item[age_group] = int(num)
                 else:
                     item[age_group] = 0
             if item['성인'] == item['아동'] == 0:
