@@ -40,6 +40,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                 end_date_flight = end_date.strftime(r'%Y-%m-%d')
                 start_date_else = start_date.strftime(r'%Y-%m-%d %H:%M:%S')
                 end_date_else = end_date.strftime(r'%Y-%m-%d %H:%M:%S')
+                # else: dateRange. 이 루프에서만 아래 코드 진행이라 n^2가 아니라 n+m임
                 for k_ in dict_:
                     # sql 시간 조회
                     if k_ != list(travel_item_kv)[0]:
@@ -233,7 +234,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                     item[age_group] = 0
             if item['성인'] == item['아동'] == 0:
                 item['성인'] = 1
-            item['총 요금'] = item['성인'] * item['성인요금'] + item['아동'] * item['아동요금']
+            item['총 금액'] = item['성인'] * item['성인요금'] + item['아동'] * item['아동요금'] # 이름 주의. 요금은 최종적으로 표기 안 함. 금액 항목만 표기
             for to_delete in all_columns_kv_2_disp['항공권_to'][1:]: # from과 동일
                 del item[to_delete]
 
