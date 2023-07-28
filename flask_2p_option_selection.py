@@ -215,7 +215,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     # 항공권
     for list_ in (dict_['항공권_to'], dict_['항공권_from']):
         for item in list_:
-            item['표종류??'] = item['표종류???_']
+            item['항공권 종류'] = item['항공권 종류_']
             item['출발 공항'] = item['출발공항(이름)'] + '공항(' + item['출발공항(코드)'] + ')'
             item['도착 공항'] = item['도착공항(이름)'] + '공항(' + item['도착공항(코드)'] + ')'
             item['출발 시간'] = item['출발시간(datetime)'][-8:-3]
@@ -234,6 +234,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
 
     # 숙박시설
     for item in dict_['호텔']:
+        item['인원수'] = str(item['인원수']) + '명'
         item['별점'] = round(item['별점'], 1)
 
     # 렌터카
