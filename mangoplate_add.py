@@ -1,9 +1,7 @@
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import pandas as pd
 from bs4 import BeautifulSoup
-from tabulate import tabulate
 
 def get_mangoplate_info(keyword):
     url = f"https://www.mangoplate.com/search/{keyword}"
@@ -83,6 +81,5 @@ def get_mangoplate_info(keyword):
         'Menu': menus
     }
     df = pd.DataFrame(data)
-    table_str = tabulate(df, headers='keys', tablefmt='plane', showindex=False, numalign='center')
 
-    return table_str
+    return df.to_dict('index')

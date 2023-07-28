@@ -168,8 +168,25 @@
             {% endif %}
          </div>
          <div class="category">
-            <h2> 제주도 맛집 정보 </h2>
-            <pre>{{mangoplate_output }}</pre>
+            <h2> 제주도 맛집 정보🍊 </h2>
+            {% if mangoplate_output|length > 0 %} 
+            <table class="table table-bordered text-center">
+                <thead class="table-light">
+                    {% for key in mangoplate_output[0] %}
+                    <th name="{{ key }}">{{ key }}</th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for values in mangoplate_output.values() %}
+                    <tr>
+                        {% for key, value in values.items() %}
+                        <td name="{{ key }}">{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
          </div>
       </div>
    </body>
