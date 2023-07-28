@@ -62,7 +62,11 @@
                         {% for item in data['항공권_to'] %}
                         <tr>
                             <td name="선택">
+                                {% if loop.index == 1 %}
+                                <input type="radio" id="항공권_to{{ loop.index }}" name="항공권_to" value="{{ item }}" checked>
+                                {% else %}
                                 <input type="radio" id="항공권_to{{ loop.index }}" name="항공권_to" value="{{ item }}">
+                                {% endif %}
                             </td>
                             {% for key, value in item.items() %}
                             <td name="{{ key }}">{{ value }}</td>
@@ -122,7 +126,11 @@
                     {% set parent_loop = loop %}
                     <tr>
                         <td name="선택" class="호텔{{ loop.index }}">
+                            {% if loop.index == 1 %}
+                            <input type="radio" id="호텔{{ loop.index }}" name="호텔" value="{{ item }}" checked>
+                            {% else %}
                             <input type="radio" id="호텔{{ loop.index }}" name="호텔" value="{{ item }}">
+                            {% endif %}
                         </td>
                         {% for key, value in item.items() %}
                         <td name="{{ key }}" id="호텔{{ parent_loop.index }}-{{ key }}">{{ value }}</td>
