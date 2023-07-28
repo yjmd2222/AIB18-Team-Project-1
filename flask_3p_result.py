@@ -16,13 +16,13 @@ def get_total_price(selected_output:dict):
 def page_3():
     start_date, end_date = request.args.get('date_range').strip('[]').replace('&#39;','').split(', ')
     region = request.args.get('region')
+    mango_region = request.args.get('new_region')
 
     weather_output = filter_weather_data(start_date, end_date)
-    # mangoplate_output = get_mangoplate_info(region)
+    mangoplate_output = get_mangoplate_info(mango_region)
 
     # 이해하기 어렵지만 dict value의 dict가 str으로 되어있음.
     selected_output = json.loads(request.args.get('input_data'))
-    print(selected_output)
     selected_output = {k: json.loads(v.replace("'", '"')) for k,v in selected_output.items()}
     total_price = get_total_price(selected_output)
 
@@ -31,7 +31,7 @@ def page_3():
                            end_date=end_date,
                            region=region,
                            weather_output=weather_output,
-                        #    mangoplate_output=mangoplate_output,
+                           mangoplate_output=mangoplate_output,
                            selected_output=selected_output,
                            total_price=total_price
                            )
