@@ -7,22 +7,25 @@
         
     <style>
         body {
-        display: flex; /* Flex 컨테이너로 설정 */
-        flex-direction: column;
-        justify-content: center; /* 가로 가운데 정렬 */
-        align-items: center; /* 세로 가운데 정렬 */
+            display: flex; /* Flex 컨테이너로 설정 */
+            flex-direction: column;
+            justify-content: center; /* 가로 가운데 정렬 */
+            align-items: center; /* 세로 가운데 정렬 */
+            background-image: url("{{ url_for('static', filename='background.png') }}");
+            background-size: cover; /* 배경 이미지를 화면에 맞게 조절 */
+            background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+            background-position: center;
+            background-attachment: fixed;
         }
         .matrix {
             display: block;
             margin-bottom: 20px;
         }
         .category {
+            background-color: rgba(255,255,255,0.5);
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
-        }
-        .category h3 {
-            margin-top: 0;
         }
         tbody {
         border: 2px solid #dee2e6;
@@ -36,10 +39,9 @@
 </head>
 <body>
     <h1> 잘 도착했지롱 🌈 </h1>
+    <h3>여행 기간: {{ start_date }} ~ {{ end_date }} </h3>
+    <h3> 여행 위치: {{ region }} </h3>
     <div class="matrix">
-        <div class="category">
-            <h2> 숙박 위치: {{ region }} </h3>
-        </div>
         <div class="category">
             <h2> 여행 경비 정보 </h2>
             <h3 class="text-center"> 총 금액: {{ total_price }} </h3>
