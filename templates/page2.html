@@ -19,21 +19,13 @@
         .category h3 {
             margin-top: 0;
         }
-        .sub-category {
-            /* display: inline-block; */
-            vertical-align: top;
-            width: 45%;
-            margin-right: 5%;
+        tbody {
+        border: 2px solid #dee2e6;
         }
-        .sub-category:last-child {
-            margin-right: 0;
-        }
-        .styled-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        font-family: sans-serif;
-        min-width: 400px;
+
+        /* 테이블 머리글의 테두리 두께를 2px로 조절 */
+        thead {
+        border: 2px solid #dee2e6;
         }
     </style>
 </head>
@@ -44,10 +36,10 @@
     <div class="matrix">
         <div class="category">
             <h3>항공권</h3>
-            <div class="sub-category", name="항공권_to">
+            <div class="category", name="항공권_to">
                 <h4>가는 편</h4>
-                <table class="table table-striped text-center">
-                    <thead>
+                <table class="table text-center">
+                    <thead class="table-light">
                         <tr>
                             {% if data['항공권_to']|length > 0 %}
                             <th name="선택">선택</th>
@@ -77,11 +69,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="sub-category", name="항공권_from">
+            <div class="category", name="항공권_from">
                 {% if data['항공권_from']|length > 0 %}
                 <h4>오는 편</h4>
-                <table class="table table-striped text-center">
-                    <thead>
+                <table class="table text-center">
+                    <thead class="table-light">
                         <tr>
                             <th name="선택">선택</th>
                             {% for key in data['항공권_from'][0].keys() %}
@@ -113,8 +105,8 @@
         </div>
         <div class="category", name="호텔">
             <h3>숙박시설</h3>
-            <table class="table table-striped text-center">
-                <thead>
+            <table class="table text-center">
+                <thead class="table-light">
                     <tr>
                         {% if data['호텔']|length > 0 %}
                         <th name="선택">선택</th>
@@ -147,8 +139,8 @@
         </div>
         <div class="category", name="렌트카">
             <h3>렌터카</h3>
-            <table class="table table-striped text-center">
-                <thead>
+            <table class="table text-center">
+                <thead class="table-light">
                     <tr>
                         {% if data['렌트카']|length > 0 %}
                         <th name="선택">선택</th>
