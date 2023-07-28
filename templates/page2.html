@@ -94,7 +94,11 @@
                         {% for item in data['항공권_from'] %}
                         <tr>
                             <td name="선택">
+                                {% if loop.index == 1 %}
+                                <input type="radio" id="항공권_from{{ loop.index }}" name="항공권_from" value="{{ item }}" checked>
+                                {% else %}
                                 <input type="radio" id="항공권_from{{ loop.index }}" name="항공권_from" value="{{ item }}">
+                                {% endif %}
                             </td>
                             {% for key, value in item.items() %}
                             <td name="{{ key }}">{{ value }}</td>
@@ -159,13 +163,29 @@
                     {% for item in data['렌트카'] %}
                     <tr>
                         <td name="선택">
+                            {% if loop.index == 1 %}
+                            <input type="radio" id="렌트카{{ loop.index }}" name="렌트카" value="{{ item }}" checked>
+                            {% else %}
                             <input type="radio" id="렌트카{{ loop.index }}" name="렌트카" value="{{ item }}">
+                            {% endif %}
                         </td>
                         {% for key, value in item.items() %}
                         <td name="{{ key }}">{{ value }}</td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
+                    <tr>
+                        <td name="선택">
+                            <input type="radio" id="렌트카uncheck" name="렌트카" value='{{ "{}" }}'>
+                        </td>
+                        {% for i in range(data['렌트카'][0] | length) %}
+                        {% if i == 0 %}
+                        <td>미선택</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
                     {% endif %}
                 </tbody>
             </table>
