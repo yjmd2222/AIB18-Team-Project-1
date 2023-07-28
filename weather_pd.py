@@ -1,5 +1,4 @@
 import pandas as pd
-from tabulate import tabulate
 
 df = pd.read_csv('weather_DB.csv', encoding='utf-8-sig')
 
@@ -19,5 +18,4 @@ def filter_weather_data(start_date, end_date):
     filtered_df = filtered_df.reset_index(drop=True)
 
     # Display the filtered weather data using tabulate
-    table = tabulate(filtered_df, headers='keys', tablefmt='plain', showindex=False, numalign='center')
-    return table
+    return filtered_df.to_dict('index')
