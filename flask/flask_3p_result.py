@@ -19,7 +19,11 @@ def get_total_price(selected_output:dict):
 def page_3():
     start_date, end_date = request.args.get('date_range').strip('[]').replace('&#39;','').split(', ')
     region = request.args.get('region')
-    mango_region = request.args.get('new_region')
+    # 숙박 미선택: 해당 날짜에 숙박 정보 없는 경우
+    if not region:
+        region = mango_region = '제주도'
+    else:
+        mango_region = request.args.get('new_region')
 
     weather_output = filter_weather_data(start_date, end_date)
     mangoplate_output = get_mangoplate_info(mango_region)
