@@ -257,7 +257,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     print(dict_)
 
 
-    return dict_, date_range
+    return dict_, date_range, one_way_or_round
 
 @bp.route('/', methods=['GET'])
 def page_2():
@@ -266,8 +266,8 @@ def page_2():
     additional_options = request.args.get('additional_input_data')
 
     # Convert the data from URL encoded string to a Python dictionary
-    data_dict, date_range = page_2_wrap_other_funcs(json.loads(data), json.loads(additional_options))
+    data_dict, date_range, one_way_or_round = page_2_wrap_other_funcs(json.loads(data), json.loads(additional_options))
     # print(data_dict)
     
     # Pass the data to the template for the second page
-    return render_template('page2.html', data=data_dict, date_range=date_range)
+    return render_template('page2.html', data=data_dict, date_range=date_range, one_way_or_round=one_way_or_round)
