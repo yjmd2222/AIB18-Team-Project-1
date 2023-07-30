@@ -10,7 +10,10 @@ def get_total_price(selected_output:dict):
     for item in selected_output.values():
         if item:
             values_list.append(list(item.values())[-1])
-    return sum(values_list)
+    # int로 변환해서 합산. 천 단위 콤마 삭제
+    values_list = [int(value.replace(',','')) for value in values_list]
+    # 합산 값 천 단위 콤마 추가
+    return f'{sum(values_list):,}'
 
 @bp.route('/', methods=['GET'])
 def page_3():

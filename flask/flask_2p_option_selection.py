@@ -237,6 +237,9 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
             if item['성인'] == item['아동'] == 0:
                 item['성인'] = 1
             item['총 금액'] = item['성인'] * item['성인요금'] + item['아동'] * item['아동요금'] # 이름 주의. 요금은 최종적으로 표기 안 함. 금액 항목만 표기
+            # 콤마 표기
+            for price in ['성인요금', '아동요금', '총 금액']:
+                item[price] = f'{item[price]:,}'
             for to_delete in all_columns_kv_2_disp['항공권_to'][1:]: # from과 동일
                 del item[to_delete]
 
@@ -244,6 +247,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
     for item in dict_['호텔']:
         item['인원수'] = str(item['인원수']) + '명'
         item['별점'] = round(item['별점'], 1)
+        item['금액'] = f'{item["금액"]:,}'
 
     # 렌터카
     for item in dict_['렌트카']:
@@ -251,6 +255,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
         item['운전경력'] = str(item['운전경력']) + '년이상'
         item['인승'] = str(item['인승']) + '인승'
         item['별점'] = '-' if item['별점'] == 0 and item['리뷰수'] == 0 else item['별점']
+        item['금액'] = f'{item["금액"]:,}'
         del item['리뷰수']
 
     # 디버깅용
