@@ -61,7 +61,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                 sql += f''', Step1 AS (SELECT * FROM Step0 WHERE {conditions[idx]})
                     , Step1check AS (
                         SELECT * FROM Step1
-                        UNION ALL
+                        UNION
                         SELECT * FROM Step0 WHERE NOT EXISTS (SELECT 1 FROM Step1)
                         )
                     '''
@@ -69,14 +69,14 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                 sql += f''', Step{idx+1} AS (
                     SELECT * FROM (
                         SELECT * FROM Step{idx}
-                        UNION ALL
+                        UNION
                         SELECT * FROM Step{idx-1} WHERE NOT EXISTS (SELECT 1 FROM Step{idx})
                         )
                     WHERE {conditions[idx]}
                     ),
                     Step{idx+1}check AS (
                     SELECT * FROM Step{idx+1}
-                    UNION ALL
+                    UNION
                     SELECT * FROM Step{idx} WHERE NOT EXISTS (SELECT 1 FROM Step{idx+1})
                     )
                     '''
@@ -84,14 +84,14 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
                 sql += f''', Step{idx+1} AS (
                     SELECT * FROM (
                         SELECT * FROM Step{idx}
-                        UNION ALL
+                        UNION
                         SELECT * FROM Step{idx-1} WHERE NOT EXISTS (SELECT 1 FROM Step{idx})
                         )
                     WHERE {conditions[idx]}
                     ),
                     Step{idx+1}check AS (
                     SELECT * FROM Step{idx+1}
-                    UNION ALL
+                    UNION
                     SELECT * FROM Step{idx}check WHERE NOT EXISTS (SELECT 1 FROM Step{idx+1})
                     )
                     '''
@@ -240,7 +240,7 @@ def page_2_wrap_other_funcs(json_data_raw:dict, additional_options:dict):
             # 콤마 표기
             for price in ['성인요금', '아동요금', '총 금액']:
                 item[price] = f'{item[price]:,}'
-            for to_delete in all_columns_kv_2_disp['항공권_to'][1:]: # from과 동일
+            for to_delete in all_columns_kv_2_disp['항공권_to'][2:]: # 금전상황, 항공사는 포함. from과 to 동일
                 del item[to_delete]
 
     # 숙박시설
